@@ -31,12 +31,4 @@ public class UserController {
         return "home";
     }
 
-    @PostMapping("/process_register")
-    public String processRegister(@NotNull User user) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
-        user.setUserPassword(encodedPassword);
-        userService.addUser(user);
-        return "login-register";
-    }
 }

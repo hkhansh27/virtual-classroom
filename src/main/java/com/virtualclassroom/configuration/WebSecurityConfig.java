@@ -49,10 +49,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/user/").authenticated()
+                .antMatchers("/user/**").authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login-register")
+                .loginPage("/login")
                 .usernameParameter("username")
                 .defaultSuccessUrl("/home")
                 .failureUrl("/login-error")

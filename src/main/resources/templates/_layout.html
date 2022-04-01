@@ -74,7 +74,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a th:href="@{/user/register}">Register</a>
+                            <a th:href="@{/register}">Register</a>
                             <ul class="sub-menu">
                                 <li><a href="course-list.html">Course List</a></li>
                                 <li><a href="course-grid.html">Course Grid</a></li>
@@ -167,11 +167,21 @@
                     <!--                    </div>-->
 
                     <div class="header-login d-none d-lg-flex">
-                        <a class="link" href="login-register.html"><i class="fa fa-user-o"></i> Login</a>
-                        <a class="link" href="login-register.html">Register</a>
+                        <div sec:authorize="!isAuthenticated()">
+                            <a class="link" th:href="@{/login}"><i class="fa fa-user-o"></i> Login</a>
+                            <a class="link" th:href="@{/register}">Register</a>
+                        </div>
                         <div sec:authorize="isAuthenticated()">
-                            <span sec:authentication="name">Bob</span>
+                            <span sec:authentication="name">Khanh</span>
                             <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+
+                            <form method="post" th:action="@{/logout}">
+                                <div class="section-title text-center">
+                                    <h4 class="title">
+                                        <button class="link" type="submit"><span>Log out</span></button>
+                                    </h4>
+                                </div>
+                            </form>
                         </div>
 
                     </div>
