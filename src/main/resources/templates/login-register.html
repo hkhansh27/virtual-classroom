@@ -54,7 +54,8 @@
                             <!-- Section Title End -->
 
                             <div class="login-register-form">
-                                <form method="post" th:action="@{/login-register}">
+                                <p th:if="${loginError}" class="alert alert-danger" role="alert">Wrong user or password</p>
+                                <form method="post" th:action="@{/login}">
                                     <div class="single-form">
                                         <label>
                                             <input class="form-control" placeholder="Username" th:name="username"
@@ -94,7 +95,7 @@
                             <!-- Section Title End -->
 
                             <div class="login-register-form">
-                                <form method="post" th:action="@{/user/process_register}" th:object="${user}">
+                                <form method="post" th:action="@{/process_register}" th:object="${user}">
                                     <div class="single-form">
 
                                         <label for="email"></label><input type="email" class="form-control" id="email" placeholder="Email " required th:field="*{userEmail}">

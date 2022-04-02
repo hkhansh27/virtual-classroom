@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +21,19 @@ public class User {
     private String userStatus;
 
     @ManyToMany()
-    @JoinTable(name = "UserClass",
-            joinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "classId", referencedColumnName = "id"))
+    @JoinTable(name = "user_class",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"))
     private Set<Classroom> classrooms = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles = new HashSet<>();
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Homework> homeworks = new HashSet<>();
 
     public User() {
     }
@@ -84,12 +93,40 @@ public class User {
         this.classrooms = classrooms;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public void addClass(Classroom cls) {
         this.classrooms.add(cls);
     }
 
     public void removeClass(Classroom cls) {
         this.classrooms.remove(cls);
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
+    public Set<Classroom> getClassrooms() {
+        return classrooms;
+    }
+
+    public void setClassrooms(Set<Classroom> classrooms) {
+        this.classrooms = classrooms;
+    }
+
+    public Set<Homework> getHomeworks() {
+        return homeworks;
+    }
+
+    public void setHomeworks(Set<Homework> homework) {
+        this.homeworks = homework;
     }
 
     @Override

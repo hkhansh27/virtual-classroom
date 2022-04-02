@@ -1,29 +1,33 @@
 package com.virtualclassroom.model;
 
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "homework")
-public class Homework {
-
+@Table(name = "roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false)
-    private Classroom classrooms;
+    private String name;
 
-    @ManyToMany()
-    @JoinTable(name = "homework_user",
-            joinColumns = @JoinColumn(name = "homework_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users = new HashSet<>();
 
-    public Homework() {}
+    public Role() {
+    }
+
+    public Role( Long id) {
+        this.id = id;
+    }
+
+    public Role( String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
@@ -33,12 +37,12 @@ public class Homework {
         this.id = id;
     }
 
-    public Classroom getClassrooms() {
-        return classrooms;
+    public String getName() {
+        return name;
     }
 
-    public void setClassrooms(Classroom classrooms) {
-        this.classrooms = classrooms;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<User> getUsers() {
@@ -49,16 +53,25 @@ public class Homework {
         this.users = users;
     }
 
+    public void addUser(User user) {
+        this.users.add(user);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Homework homework = (Homework) o;
-        return Objects.equals(id, homework.id);
+        Role role = (Role) o;
+        return Objects.equals(id, role.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }
