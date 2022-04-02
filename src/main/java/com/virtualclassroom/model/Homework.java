@@ -6,39 +6,47 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "homework")
 public class Homework {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    private Long classId;
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false)
+    private Classroom classrooms;
 
     @ManyToMany()
-    @JoinTable(name = "HomeworkUser",
-            joinColumns = @JoinColumn(name = "homeWorkId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"))
-    private Set<Classroom> classrooms = new HashSet<>();
+    @JoinTable(name = "homework_user",
+            joinColumns = @JoinColumn(name = "homework_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private Set<User> users = new HashSet<>();
 
     public Homework() {}
-    public Homework(Long classId) {
-        this.classId = classId;
-    }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
-    public Long getClassId() {
-        return classId;
+    public Classroom getClassrooms() {
+        return classrooms;
     }
 
-    public void setClassId(Long classId) {
-        this.classId = classId;
+    public void setClassrooms(Classroom classrooms) {
+        this.classrooms = classrooms;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     @Override
@@ -46,11 +54,11 @@ public class Homework {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Homework homework = (Homework) o;
-        return Objects.equals(Id, homework.Id) && Objects.equals(classId, homework.classId) && Objects.equals(classrooms, homework.classrooms);
+        return Objects.equals(id, homework.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, classId, classrooms);
+        return Objects.hash(id);
     }
 }

@@ -20,6 +20,9 @@ public class Classroom {
     @ManyToMany(mappedBy = "classrooms")
     private Set<User> users = new HashSet<>();
 
+    @OneToMany(mappedBy = "classrooms")
+    private Set<Homework> homework = new HashSet<>();
+
     public Classroom() {
     }
 
@@ -69,6 +72,14 @@ public class Classroom {
 
     public void removeUser(User user) {
         this.users.remove(user);
+    }
+
+    public Set<Homework> getHomework() {
+        return homework;
+    }
+
+    public void setHomework(Set<Homework> homework) {
+        this.homework = homework;
     }
 
     @Override
