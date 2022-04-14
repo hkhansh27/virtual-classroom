@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="vi"
+      layout:decorate="_layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+>
+<head th:replace="_layout :: head(type='tag')">
+    <title></title>
+</head>
+
+<body>
+
+<div class="main-wrapper" layout:fragment="main_body">
+    <!-- Page Banner Start -->
+    <div class="section page-banner-section bg-color-1">
+
+        <img alt="shape" class="shape-1" th:src="@{../images/shape/shape-5.png}">
+        <img alt="shape" class="shape-2" th:src="@{../images/shape/shape-6.png}">
+        <img alt="shape" class="shape-3" th:src="@{../images/shape/shape-7.png}">
+
+        <img alt="shape" class="shape-4" th:src="@{../images/shape/shape-21.png}">
+        <img alt="shape" class="shape-5" th:src="@{../images/shape/shape-21.png}">
+
+        <div class="container">
+            <!-- Page Banner Content Start -->
+            <div class="page-banner-content">
+                <h2 class="title">Login & Register</h2>
+                <ul class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Login & Register</li>
+                </ul>
+            </div>
+            <!-- Page Banner Content End -->
+        </div>
+    </div>
+    <!-- Page Banner End -->
+
+    <div class="login-register-form">
+        <form th:action="@{/upload}" th:object="${homework}" method="post" enctype="multipart/form-data">
+            <div class="single-form">
+                <label>
+                    <input class="form-control" th:field="*{name}" placeholder="Homework's name"  type="text" >
+                </label>
+            </div>
+            <input
+                    class="form-control" name="file" type="file" id="formFile"><br />
+            <input type="submit" value="Upload" class="btn btn-warning">
+        </form>
+    </div>
+</div>
+</body>
+</html>
