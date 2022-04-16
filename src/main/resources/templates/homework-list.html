@@ -20,13 +20,14 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-
+                <th>Download</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="homework: ${homeworkList}">
                 <td th:text="${homework.id}"></td>
                 <td th:text="${homework.name}"></td>
+                <th> <a th:href="@{'/homework_list/download?id=' + ${homework.id}}"><i class="fa fa-download"></i></a></th>
             </tr>
             </tbody>
         </table>

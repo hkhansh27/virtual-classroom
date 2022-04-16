@@ -27,6 +27,8 @@ public class Homework {
 
     private Long size;
 
+    private int score;
+
     @Lob
     private byte [] content;
 
@@ -78,6 +80,18 @@ public class Homework {
 
     public void setContent(byte[] content) {
         this.content = content;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
     }
 
     @Override
