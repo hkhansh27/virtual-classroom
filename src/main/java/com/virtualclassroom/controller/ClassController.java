@@ -44,7 +44,6 @@ public class ClassController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             User user = userService.findByUsername(authentication.getName());
-            //classroom.addUser(user);
             user.getClassrooms().add(classroom);
             userService.addUser(user);
         }
