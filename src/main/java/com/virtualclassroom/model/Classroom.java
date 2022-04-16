@@ -17,7 +17,7 @@ public class Classroom {
 
     private String codeClass;
 
-    @ManyToMany(mappedBy = "classrooms")
+    @ManyToMany(mappedBy = "classrooms", cascade = CascadeType.ALL)
     private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "classrooms")

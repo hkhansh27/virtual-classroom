@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href = "@{/creClassStyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+<body>
+<a href="#" id="create-btn">Create</a>
+<div class="center">
+    <i class="fas fa-times" id="form-close"></i>
+    <form th:action="@{/classroom/save}" th:object="${classroom}" method="post">
+        <h1>Tạo lớp học</h1>
+        <div class="txt_field">
+            <input type="text" th:field="*{nameClass}" required>
+            <label>Tên lớp học</label>
+        </div>
+        <div class="txt_field">
+            <input type="text" th:field="*{descriptionClass}" required>
+            <label>Chủ đề</label>
+        </div>
+        <input type="submit" value="Tạo">
+    </form>
+</div>
+
+
+
+<script type="text/javascript" th:src = "@{/creClassScript.js}"></script>
+</body>
+</html>

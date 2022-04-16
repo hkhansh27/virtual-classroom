@@ -1,5 +1,6 @@
 package com.virtualclassroom.controller;
 
+import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.User;
 import com.virtualclassroom.service.user.UserService;
 import org.jetbrains.annotations.NotNull;
@@ -24,9 +25,7 @@ public class AppController {
     }
 
     @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
+    public String home() {return "home";}
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
