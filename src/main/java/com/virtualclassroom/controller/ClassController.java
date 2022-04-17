@@ -44,11 +44,11 @@ public class ClassController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             User user = userService.findByUsername(authentication.getName());
+            classroom.setCodeClass(getRandomNumberString());
             user.getClassrooms().add(classroom);
             userService.addUser(user);
         }
-        classroom.setCodeClass(getRandomNumberString());
-        classroomService.createClass(classroom);
+        //classroomService.createClass(classroom);
         return "classroom";
     }
 
