@@ -2,11 +2,8 @@ package com.virtualclassroom.controller;
 
 import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.User;
-import com.virtualclassroom.repository.ClassRepository;
-import com.virtualclassroom.repository.UserRepository;
 import com.virtualclassroom.service.classroom.ClassroomService;
 import com.virtualclassroom.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.net.Authenticator;
 import java.util.Random;
 
 @Controller
@@ -29,6 +24,7 @@ public class ClassController {
         this.userService = userService;
         this.classroomService = classroomService;
     }
+
     public static String getRandomNumberString() {
         // It will generate 6 digit random Number.
         // from 0 to 999999
@@ -48,7 +44,7 @@ public class ClassController {
             user.getClassrooms().add(classroom);
             userService.addUser(user);
         }
-        //classroomService.createClass(classroom);
+        classroomService.createClass(classroom);
         return "classroom";
     }
 
@@ -57,5 +53,4 @@ public class ClassController {
         model.addAttribute("classroom", new Classroom());
         return "classroom";
     }
-
 }
