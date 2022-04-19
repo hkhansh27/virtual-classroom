@@ -7,6 +7,7 @@ import com.virtualclassroom.service.homework.HomeworkService;
 import com.virtualclassroom.service.user.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -78,17 +79,20 @@ public class AppController {
         return "login-register";
     }
 
-    @GetMapping("/upload")
-    public String upload(Model model) {
+    @PreAuthorize("hasAnyAuthority('TEACHER')")
+    @GetMapping("/course_details")
+    public String getCourseDetails(Model model) {
+//        Homework homework = new Homework();
+//        homework.setName("Homework 1");
         model.addAttribute("homework", new Homework());
-        return "file-upload";
+        return "course-details";
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/course_details")
     public String upload(@RequestParam("file") MultipartFile file, Model model, Homework homework) {
         if (file.isEmpty()) {
             model.addAttribute("success", "Failed");
-            return "file-upload";
+            return "course-details";
         }
         try {
 //            String fileName = file.getOriginalFilename();
@@ -111,7 +115,7 @@ public class AppController {
             e.printStackTrace();
         }
         model.addAttribute("success", "File uploaded successfully");
-        return "file-upload";
+        return "course-details";
     }
 
     @GetMapping("/homework_list")
