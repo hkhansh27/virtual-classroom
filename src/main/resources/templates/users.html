@@ -22,6 +22,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Roles</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -30,6 +31,9 @@
                 <td th:text="${user.userName}"></td>
                 <td th:text="${user.userEmail}"></td>
                 <td th:text="${user.roles}"></td>
+                <td>
+                    <a th:href="@{'/users/edit/' + ${user.id}}">Edit</a>
+                </td>
             </tr>
             </tbody>
         </table>

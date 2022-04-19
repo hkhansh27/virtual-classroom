@@ -4,5 +4,6 @@ import com.virtualclassroom.model.Classroom;
 
 public interface ClassroomService {
     Classroom getClassroomById(Long id);
+    void createClass(Classroom classroom);
 }
 

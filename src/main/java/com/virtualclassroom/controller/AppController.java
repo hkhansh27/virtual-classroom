@@ -11,18 +11,20 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.virtualclassroom.model.Role;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.PathVariable;
+import java.util.List;
+
 
 @Controller
 public class AppController {
@@ -42,9 +44,7 @@ public class AppController {
     }
 
     @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
+    public String home() {return "home";}
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
@@ -54,10 +54,11 @@ public class AppController {
 
     @PostMapping("/process_register")
     public String processRegister(@NotNull User user) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
-        user.setUserPassword(encodedPassword);
-        userService.addUser(user);
+        userService.saveUserWithDefaultRole(user);
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
+//        user.setUserPassword(encodedPassword);
+//        userService.addUser(user);
         return "login-register";
     }
 
@@ -133,5 +134,20 @@ public class AppController {
             response.setHeader("Content-Disposition", "attachment; filename=\"" + homework.getName() + "\"");
             response.getOutputStream().write(homework.getContent());
         }
+    }
+
+    @PostMapping("/users/save")
+    public String saveUser(User user){
+        userService.save(user);
+        return "redirect:/user/index";
+    }
+
+    @GetMapping("users/edit/{id}")
+    public String editUser(@PathVariable("id") Long id, Model model) {
+        User user = userService.get(id);
+        List<Role> listRoles = userService.getRoles();
+        model.addAttribute("user", user);
+        model.addAttribute("listRoles", listRoles);
+        return "user_form";
     }
 }
