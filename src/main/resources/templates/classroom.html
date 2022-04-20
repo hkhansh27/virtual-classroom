@@ -33,7 +33,7 @@
 
 <div class="center2">
     <i class="fas fa-times" id="form-close2"></i>
-    <form th:action="@{/classroom/join}" method="post">
+    <form th:action="@{/classroom/join}" th:object="${classroom}" method="post">
         <h1>Tham gia lớp học</h1>
         <div class="txt_field">
             <input type="text" name="keyword" required>

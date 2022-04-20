@@ -50,11 +50,11 @@ public class ClassController {
 
     @PostMapping("/join")
     public String joinClassroom(@RequestParam String keyword, Classroom classroom) {
-        User user = userService.getCurrentUser();
-        classroom = classroomService.findClassByCodeID(keyword);
-        user.getClassrooms().add(classroom);
-        userService.addUser(user);
-        return "classroom";
+            User user = userService.getCurrentUser();
+            classroom = classroomService.findClassByCodeID(keyword);
+            user.getClassrooms().add(classroom);
+            userService.addUser(user);
+            return "classroom";
     }
 
     @PreAuthorize("hasAuthority('TEACHER') or hasAuthority('STUDENT')")
