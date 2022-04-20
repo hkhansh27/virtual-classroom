@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/users/save}" th:object="${user}"
+<form th:action="@{/user/save}" th:object="${user}"
       method="post" style="max-width: 600px; margin: 0 auto;">
     <input type="hidden" th:field="*{id}" />
     <div class="m-3">

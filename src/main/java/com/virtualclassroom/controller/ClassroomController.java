@@ -2,29 +2,34 @@ package com.virtualclassroom.controller;
 
 import com.virtualclassroom.dto.ClassrooomDto;
 import com.virtualclassroom.model.Classroom;
+import com.virtualclassroom.model.Homework;
 import com.virtualclassroom.model.User;
 import com.virtualclassroom.service.classroom.ClassroomService;
+import com.virtualclassroom.service.homework.HomeworkService;
 import com.virtualclassroom.service.user.UserService;
 import com.virtualclassroom.utils.Helper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/classroom")
-public class ClassController {
+public class ClassroomController {
     private final UserService userService;
     private final ClassroomService classroomService;
+    private final HomeworkService homeworkService;
 
-    public ClassController(UserService userService, ClassroomService classroomService) {
+    public ClassroomController(UserService userService, ClassroomService classroomService, HomeworkService homeworkService) {
         this.userService = userService;
         this.classroomService = classroomService;
+        this.homeworkService = homeworkService;
     }
 
     @PreAuthorize("hasAuthority('TEACHER')")
@@ -34,6 +39,7 @@ public class ClassController {
         return "classroom";
     }
 
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @PostMapping("/save")
     public String saveClassroom(Classroom classroom) {
         User user = userService.getCurrentUser();
@@ -44,7 +50,7 @@ public class ClassController {
         return "classroom";
     }
 
-    @PreAuthorize("hasAuthority('TEACHER') or hasAuthority('STUDENT')")
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping("/list")
     public String listClassroom(Model model) {
         List<ClassrooomDto> classrooomDtoList = new ArrayList<>();
@@ -63,5 +69,37 @@ public class ClassController {
         });
         model.addAttribute("classroomDtoList", classrooomDtoList);
         return "course-list";
+    }
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
+    @GetMapping("/{id}")
+    public String getCourseDetails(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("classroomId", id);
+        model.addAttribute("homework", new Homework());
+        return "course-details";
+    }
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
+    @PostMapping("/course_details")
+    public String upload(@RequestParam("file") MultipartFile file, @RequestParam(name = "classroomId") Long classroomId, Model model, Homework homework, RedirectAttributes redirAttrs) {
+        if (file.isEmpty()) {
+            redirAttrs.addFlashAttribute("error", "Failed to store empty file");
+            return "redirect:/classroom/" + classroomId;
+        }
+        try {
+//            String fileName = file.getOriginalFilename();
+            homework.setName(homework.getName());
+            homework.setContent(file.getBytes());
+            homework.setSize(file.getSize());
+            var classroom = classroomService.getClassroomById(classroomId);
+            homework.addUser(userService.getCurrentUser());
+            homework.setClassrooms(classroom);
+            homeworkService.createHomework(homework);
+            redirAttrs.addFlashAttribute("success", "Created homework successfully!!!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        redirAttrs.addFlashAttribute("success", "File uploaded successfully");
+        return "redirect:/classroom/" + classroomId;
     }
 }

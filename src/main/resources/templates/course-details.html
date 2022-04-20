@@ -14,8 +14,8 @@
     <!-- Page Banner Start -->
     <div class="section page-banner-section bg-color-1">
 
-        <img class="shape-4" th:src="@{images/shape/shape-21.png}" alt="shape">
-        <img class="shape-5" th:src="@{images/shape/shape-21.png}" alt="shape">
+        <img class="shape-4" th:src="@{/images/shape/shape-21.png}" alt="shape">
+        <img class="shape-5" th:src="@{/images/shape/shape-21.png}" alt="shape">
 
         <div class="container">
             <!-- Course Details Banner Content Start -->
@@ -34,7 +34,7 @@
                 <div class="course-details-meta">
                     <div class="meta-action">
                         <div class="meta-author">
-                            <img th:src="@{images/author-1.jpg}" alt="Author">
+                            <img th:src="@{/images/author-1.jpg}" alt="Author">
                         </div>
                         <div class="meta-name">
                             <h5 class="name">Adam Helen</h5>
@@ -145,7 +145,7 @@
 
                             <div class="instructor-profile">
                                 <div class="profile-images">
-                                    <img th:src="@{images/author-7.jpg}" alt="author">
+                                    <img th:src="@{/images/author-7.jpg}" alt="author">
                                 </div>
                                 <div class="profile-content">
                                     <h5 class="name">Alena Hedge</h5>
@@ -246,7 +246,7 @@
                                         <!-- Single Review Start -->
                                         <div class="single-review">
                                             <div class="review-author">
-                                                <img th:src="@{images/author-1.jpg}" alt="Author">
+                                                <img th:src="@{/images/author-1.jpg}" alt="Author">
                                             </div>
                                             <div class="review-content">
                                                 <div class="review-top">
@@ -265,7 +265,7 @@
                                         <!-- Single Review Start -->
                                         <div class="single-review">
                                             <div class="review-author">
-                                                <img th:src="@{images/author-3.jpg}" alt="Author">
+                                                <img th:src="@{/images/author-3.jpg}" alt="Author">
                                             </div>
                                             <div class="review-content">
                                                 <div class="review-top">
@@ -299,7 +299,7 @@
                         <!-- Sidebar Details Video Description Start -->
                         <div class="sidebar-details-video-description">
                             <div class="sidebar-video">
-                                <img th:src="@{images/sidebar-video.jpg}" alt="video">
+                                <img th:src="@{/images/sidebar-video.jpg}" alt="video">
                                 <a href="https://youtu.be/cdZHQFCqK3g" class="play videoLightbox"><i class="fa fa-play"></i></a>
                             </div>
                             <div class="sidebar-description">
@@ -307,10 +307,14 @@
                                     <span class="sale-price">$49.99</span>
                                     <span class="regular-price">$102</span>
                                 </div>
+                                <p th:if="${success}" class="alert alert-success" role="alert" th:text="${success}"></p>
+                                <p th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></p>
                                 <div>
-                                    <form enctype="multipart/form-data" method="post" th:action="@{/course_details}"
+                                    <form enctype="multipart/form-data" method="post" th:action="@{/classroom/course_details}"
                                           th:object="${homework}">
+                                        <input type="hidden" name="classroomId" th:value="${classroomId}">
                                         <input id="formFile" name="file" type="file">
+
                                         <button class="btn btn-warning btn-hover-heading-color w-100" type="submit">
                                             Upload
                                         </button>
@@ -337,7 +341,7 @@
                                     <!-- Single Course Start -->
                                     <div class="sidebar-course-item">
                                         <div class="item-image">
-                                            <a href="course-details.html"><img th:src="@{images/courses/courses-1.jpg}" alt="Courses"></a>
+                                            <a href="course-details.html"><img th:src="@{/images/courses/courses-1.jpg}" alt="Courses"></a>
                                         </div>
                                         <div class="item-content">
                                             <h3 class="title"><a href="course-details.html">Cupidatat non proident sunt culpa officia deserunt</a></h3>
@@ -350,7 +354,7 @@
                                     <!-- Single Course Start -->
                                     <div class="sidebar-course-item">
                                         <div class="item-image">
-                                            <a href="course-details.html"><img th:src="@{images/courses/courses-2.jpg}" alt="Courses"></a>
+                                            <a href="course-details.html"><img th:src="@{/images/courses/courses-2.jpg}" alt="Courses"></a>
                                         </div>
                                         <div class="item-content">
                                             <h3 class="title"><a href="course-details.html">Cupidatat non proident sunt culpa officia deserunt</a></h3>
@@ -363,7 +367,7 @@
                                     <!-- Single Course Start -->
                                     <div class="sidebar-course-item">
                                         <div class="item-image">
-                                            <a href="course-details.html"><img th:src="@{images/courses/courses-3.jpg}" alt="Courses"></a>
+                                            <a href="course-details.html"><img th:src="@{/images/courses/courses-3.jpg}" alt="Courses"></a>
                                         </div>
                                         <div class="item-content">
                                             <h3 class="title"><a href="course-details.html">Cupidatat non proident sunt culpa officia deserunt</a></h3>
