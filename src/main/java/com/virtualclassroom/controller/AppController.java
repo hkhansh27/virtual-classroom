@@ -79,7 +79,7 @@ public class AppController {
         model.addAttribute("loginError", true);
         return "login-register";
     }
-
+  
     @GetMapping("/homework_list")
     public String getHomeworkListPage(Model model) {
         model.addAttribute("homeworkList", homeworkService.getAllHomework());
