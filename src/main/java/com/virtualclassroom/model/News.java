@@ -11,6 +11,8 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
+    private String content;
+
 
     @OneToOne
     @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false)
@@ -32,16 +34,40 @@ public class News {
         this.id = id;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Classroom getClassrooms() {
+        return classrooms;
+    }
+
+    public void setClassrooms(Classroom classrooms) {
+        this.classrooms = classrooms;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         News news = (News) o;
-        return Objects.equals(id, news.id) && Objects.equals(classrooms, news.classrooms);
+        return Objects.equals(id, news.id) && Objects.equals(content, news.content) && Objects.equals(classrooms, news.classrooms) && Objects.equals(users, news.users);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, classrooms);
+        return Objects.hash(id, content, classrooms, users);
     }
 }

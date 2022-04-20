@@ -80,45 +80,6 @@ public class AppController {
         return "login-register";
     }
 
-    @PreAuthorize("hasAnyAuthority('TEACHER')")
-    @GetMapping("/course_details")
-    public String getCourseDetails(Model model) {
-//        Homework homework = new Homework();
-//        homework.setName("Homework 1");
-        model.addAttribute("homework", new Homework());
-        return "course-details";
-    }
-
-    @PostMapping("/course_details")
-    public String upload(@RequestParam("file") MultipartFile file, Model model, Homework homework) {
-        if (file.isEmpty()) {
-            model.addAttribute("success", "Failed");
-            return "course-details";
-        }
-        try {
-//            String fileName = file.getOriginalFilename();
-            homework.setName(homework.getName());
-            homework.setContent(file.getBytes());
-            homework.setSize(file.getSize());
-            //Set the classroom id
-            var classroom = classroomService.getClassroomById(1L);
-
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (!(authentication instanceof AnonymousAuthenticationToken)) {
-                User user = userService.findByUsername(authentication.getName());
-                homework.addUser(user);
-            }
-
-            homework.setClassrooms(classroom);
-            homeworkService.createHomework(homework);
-            model.addAttribute("success", "Created homework successfully!!!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        model.addAttribute("success", "File uploaded successfully");
-        return "course-details";
-    }
-
     @GetMapping("/homework_list")
     public String getHomeworkListPage(Model model) {
         model.addAttribute("homeworkList", homeworkService.getAllHomework());
@@ -134,20 +95,5 @@ public class AppController {
             response.setHeader("Content-Disposition", "attachment; filename=\"" + homework.getName() + "\"");
             response.getOutputStream().write(homework.getContent());
         }
-    }
-
-    @PostMapping("/users/save")
-    public String saveUser(User user){
-        userService.save(user);
-        return "redirect:/user/index";
-    }
-
-    @GetMapping("users/edit/{id}")
-    public String editUser(@PathVariable("id") Long id, Model model) {
-        User user = userService.get(id);
-        List<Role> listRoles = userService.getRoles();
-        model.addAttribute("user", user);
-        model.addAttribute("listRoles", listRoles);
-        return "user_form";
     }
 }

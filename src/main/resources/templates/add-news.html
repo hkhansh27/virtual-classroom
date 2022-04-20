@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="_layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_layout :: head(type='tag')">
+    <title>add news</title>
+</head>
+
+<body>
+
+<div class="main-wrapper" layout:fragment="main_body">
+
+    <!-- Contact Form Start -->
+    <div class="section section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+
+                    <!-- Section Title Start -->
+                    <div class="section-title text-center">
+                        <h2 class="title"><span>Add news</span> To class</h2>
+                    </div>
+                    <!-- Section Title End -->
+
+                    <!-- Contact Form Start -->
+                    <div class="contact-form-wrapper">
+                        <form th:action="@{/news}" method="post" th:object="${news}">
+                            <div class="row">
+<!--                                <div class="col-md-6">-->
+<!--                                    &lt;!&ndash; Single Form Start &ndash;&gt;-->
+<!--                                    <div class="single-form">-->
+<!--                                        <input type="text" class="form-control" placeholder="Your Name*">-->
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash; Single Form End &ndash;&gt;-->
+<!--                                </div>-->
+                                <div class="col-md-12">
+                                    <!-- Single Form Start -->
+                                    <div class="single-form">
+                                        <textarea  th:field="*{content}" class="form-control" placeholder="Write A Massage*"></textarea>
+                                    </div>
+                                    <!-- Single Form End -->
+                                </div>
+                                <div class="col-md-12">
+                                    <!-- Single Form Start -->
+                                    <div class="single-form text-center">
+                                        <button class="btn btn-primary btn-hover-heading-color">Send Message</button>
+                                    </div>
+                                    <!-- Single Form End -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Contact Form End -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact Form End -->
+
+
+    <!-- Back to Top End -->
+    <button class="back-btn" id="backBtn"><i class="fa fa-angle-up"></i></button>
+    <!-- Back to Top End -->
+
+</div>
+</body>
+
+</html>
