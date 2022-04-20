@@ -6,6 +6,7 @@ import com.virtualclassroom.model.User;
 import java.util.List;
 
 public interface UserService {
+    User getCurrentUser();
     List<User> getAllUsers();
     void addUser(User user);
     void saveUserWithDefaultRole(User user);
