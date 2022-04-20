@@ -60,4 +60,6 @@ public class AppController {
         model.addAttribute("loginError", true);
         return "login-register";
     }
+
+
 }
