@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -65,6 +66,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByEmail(String username) {
         return userRepository.findByEmail(username);
+    }
+
+    @Override
+    public Set<User> findByRole(String role) {
+        return userRepository.findByRole(role);
+    }
+
+    @Override
+    public Set<User> findByRoleAndClassroom(String role, Long classroomId) {
+        return userRepository.findByRoleAndClassroom(role, classroomId);
     }
 
     public User get(Long id) {
