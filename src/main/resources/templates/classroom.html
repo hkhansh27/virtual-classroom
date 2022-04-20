@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 <body>
-<a href="#" id="create-btn">Create</a>
+<div>
+    <a href="#" id="create-btn">Create</a>
+</div>
+<div>
+    <a href="#" id="join-btn">Join</a>
+</div>
 <div class="center">
     <i class="fas fa-times" id="form-close"></i>
     <form th:action="@{/classroom/save}" th:object="${classroom}" method="post">
@@ -23,6 +28,19 @@
             <label>Chủ đề</label>
         </div>
         <input type="submit" value="Tạo">
+    </form>
+</div>
+
+<div class="center2">
+    <i class="fas fa-times" id="form-close2"></i>
+    <form th:action="@{/classroom/join}" method="post">
+        <h1>Tham gia lớp học</h1>
+        <div class="txt_field">
+            <input type="text" name="keyword" required>
+            &nbsp;
+            <label>Mã lớp học</label>
+        </div>
+        <input type="submit" value="Tham gia">
     </form>
 </div>
 
