@@ -1,14 +1,9 @@
 package com.virtualclassroom.controller;
 
-import com.virtualclassroom.model.User;
 import com.virtualclassroom.service.user.UserService;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller

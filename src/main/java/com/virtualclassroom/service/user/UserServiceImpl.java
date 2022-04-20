@@ -5,6 +5,8 @@ import com.virtualclassroom.model.User;
 import com.virtualclassroom.repository.RoleRepository;
 import com.virtualclassroom.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    public  void save(User user){
+    public void save(User user){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getUserPassword());
         user.setUserPassword(encodedPassword);
@@ -42,6 +44,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public User getCurrentUser() {
+        var currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByUsername(currentUsername);
     }
 
     @Override
