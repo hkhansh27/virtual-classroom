@@ -13,7 +13,7 @@ public class Homework {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false)
     private Classroom classrooms;
 
@@ -22,6 +22,15 @@ public class Homework {
             joinColumns = @JoinColumn(name = "homework_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> users = new HashSet<>();
+
+    private String name;
+
+    private Long size;
+
+    private int score;
+
+    @Lob
+    private byte [] content;
 
     public Homework() {}
 
@@ -47,6 +56,42 @@ public class Homework {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getSize() {
+        return size;
+    }
+
+    public void setSize(Long size) {
+        this.size = size;
+    }
+
+    public byte[] getContent() {
+        return content;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
     }
 
     @Override
