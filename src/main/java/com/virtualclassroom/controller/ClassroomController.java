@@ -46,7 +46,15 @@ public class ClassroomController {
         classroom.setCodeClass(Helper.getRandomNumberString());
         user.getClassrooms().add(classroom);
         userService.addUser(user);
-        classroomService.createClass(classroom);
+        return "classroom";
+    }
+
+    @PostMapping("/join")
+    public String joinClassroom(@RequestParam String keyword, Classroom classroom) {
+        User user = userService.getCurrentUser();
+        classroom = classroomService.findClassByCodeID(keyword);
+        user.getClassrooms().add(classroom);
+        userService.addUser(user);
         return "classroom";
     }
 

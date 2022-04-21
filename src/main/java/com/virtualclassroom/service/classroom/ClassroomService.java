@@ -9,5 +9,6 @@ public interface ClassroomService {
     void createClass(Classroom classroom);
     List<Classroom> getAllClasses();
     List<Classroom> getClassesByUsername(String username);
+    Classroom findClassByCodeID(String keyword);
 }
 

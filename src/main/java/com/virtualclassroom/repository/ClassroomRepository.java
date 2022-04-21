@@ -12,4 +12,7 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
 
     @Query("SELECT DISTINCT classroom FROM Classroom classroom JOIN classroom.users user  WHERE user.userName = :userName")
     List<Classroom> findByUserName(@Param("userName") String userName);
+
+    @Query("SELECT p FROM Classroom p WHERE p.codeClass LIKE %?1%")
+    Classroom findbyKey(String keyword);
 }

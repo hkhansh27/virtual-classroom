@@ -46,5 +46,4 @@ public class UserController {
         model.addAttribute("listRoles", listRoles);
         return "user_form";
     }
-
 }

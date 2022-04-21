@@ -51,6 +51,50 @@ body {
     top: 0;
 }
 
+/**/
+.center2 {
+    position: fixed;
+    top:-120%; left:0;
+    z-index: 10000;
+    min-height: 100vh;
+    width: 100%;
+    background: rgba(0,0,0,.7);
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+.center2 h1 {
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid silver;
+}
+
+.center2 form {
+    margin: 2rem;
+    padding: 1.5rem 2rem;
+    border-radius: .5rem;
+    background: #fff;
+    width: 50rem;
+    /*padding: 0 40px;*/
+    /*box-sizing: border-box;*/
+}
+
+.center2 #form-close2 {
+    position: absolute;
+    top:2rem;
+    right: 3rem;
+    font-size: 5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+.center2.active {
+    top: 0;
+}
+/**/
+
+
+
+
 form .txt_field {
     position: relative;
     border-bottom: 2px solid #adadad;

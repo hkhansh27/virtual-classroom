@@ -171,7 +171,7 @@
                             <a class="link" th:href="@{/login}"><i class="fa fa-user-o"></i> Login</a>
                             <a class="link" th:href="@{/register}">Register</a>
                         </div>
-                        <div sec:authorize="hasAuthority('ADMIN')">
+                        <div sec:authorize="isAuthenticated()">
                             <span sec:authentication="name">Khanh</span>
                             <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
                             <h1>HELLO</h1>

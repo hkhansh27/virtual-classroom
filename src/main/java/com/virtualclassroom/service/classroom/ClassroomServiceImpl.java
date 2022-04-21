@@ -36,4 +36,10 @@ public class ClassroomServiceImpl implements ClassroomService {
         classroomRepository.save(classroom);
     }
 
+    public Classroom findClassByCodeID(String keyword) {
+        if (keyword != null) {
+            return classroomRepository.findbyKey(keyword);
+        }
+        return null;
+    }
 }
