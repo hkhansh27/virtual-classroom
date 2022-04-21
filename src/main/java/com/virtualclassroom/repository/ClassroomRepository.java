@@ -14,5 +14,5 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
     List<Classroom> findByUserName(@Param("userName") String userName);
 
     @Query("SELECT p FROM Classroom p WHERE p.codeClass LIKE %?1%")
-    public Classroom findbyKey(String keyword);
+    Classroom findbyKey(String keyword);
 }
