@@ -2,7 +2,7 @@
 <html lang="vi"
       layout:decorate="_layout"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 >
 <head th:replace="_layout :: head(type='tag')">
   <title></title>
@@ -39,6 +39,9 @@
   <!-- Blog Start -->
   <div class="section section-padding">
     <div class="container">
+      <div sec:authorize="hasAnyAuthority('TEACHER')">
+      <a th:href="@{'/news/add/' + ${classroomId}}" class="btn btn-primary btn-hover-heading-color">Add News</a>
+      </div>
       <!-- Blog Wrapper Start -->
       <div class="blog-wrapper-02">
         <div class="row justify-content-between">

@@ -2,6 +2,7 @@ package com.virtualclassroom.service.news;
 
 import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.News;
+import com.virtualclassroom.repository.ClassroomRepository;
 import com.virtualclassroom.repository.NewsRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,10 @@ import java.util.Optional;
 @Service
 public class NewsServicelmpl implements NewsService {
     private final NewsRepository newsRepository;
-
-    NewsServicelmpl(NewsRepository newsRepository){
+    private final ClassroomRepository classroomRepository;
+    NewsServicelmpl(NewsRepository newsRepository, ClassroomRepository classroomRepository){
         this.newsRepository = newsRepository;
+        this.classroomRepository = classroomRepository;
     }
 
     @Override
@@ -31,8 +33,8 @@ public class NewsServicelmpl implements NewsService {
         return newsRepository.findById(id);
     }
 
-    //public Classroom get(Long id) {
-        //return Classroom.findById(id).get();
-    //}
+    public Classroom get(Long id) {
+        return classroomRepository.findById(id).get();
+    }
 
 }

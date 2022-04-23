@@ -13,5 +13,5 @@ public interface NewsService {
 
     Optional<News> findByNewsId(Long id);
 
-    //Classroom get(Long id);
+    Classroom get(Long id);
 }
