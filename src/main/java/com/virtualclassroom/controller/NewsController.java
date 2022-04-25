@@ -64,6 +64,6 @@ public class NewsController {
         news.setClassroom(classroomService.getClassroomById(classroomId));
         news.setUser(userService.getCurrentUser());
         newsService.addNews(news);
-        return "add-news";
+        return "redirect:/news/add/" + classroomId;
     }
 }
