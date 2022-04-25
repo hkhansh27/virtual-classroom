@@ -38,6 +38,9 @@
                                 <div class="col-md-12">
                                     <!-- Single Form Start -->
                                     <div class="single-form">
+                                        <textarea  th:field="*{title}" class="form-control" placeholder="Write A title*"></textarea>
+                                    </div>
+                                    <div class="single-form">
                                         <textarea  th:field="*{content}" class="form-control" placeholder="Write A Massage*"></textarea>
                                     </div>
                                     <input type="hidden" name="classroomId" th:value="${classroomId}">

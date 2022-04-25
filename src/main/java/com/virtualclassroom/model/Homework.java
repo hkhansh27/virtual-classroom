@@ -15,7 +15,7 @@ public class Homework {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false)
-    private Classroom classrooms;
+    private Classroom classroom;
 
     @ManyToMany()
     @JoinTable(name = "homework_user",
@@ -42,12 +42,12 @@ public class Homework {
         this.id = id;
     }
 
-    public Classroom getClassrooms() {
-        return classrooms;
+    public Classroom getClassroom() {
+        return classroom;
     }
 
-    public void setClassrooms(Classroom classrooms) {
-        this.classrooms = classrooms;
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
     }
 
     public Set<User> getUsers() {

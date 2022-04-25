@@ -24,6 +24,11 @@ public class NewsServicelmpl implements NewsService {
     }
 
     @Override
+    public List<News> getNewsByUsername(String userName) {
+        return newsRepository.findByUserName(userName);
+    }
+
+    @Override
     public void addNews(News news) {
         newsRepository.save(news);
     }
