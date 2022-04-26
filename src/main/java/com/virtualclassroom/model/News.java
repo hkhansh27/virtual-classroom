@@ -1,9 +1,8 @@
 package com.virtualclassroom.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class News {
@@ -11,20 +10,30 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
+
+    private String title;
+
     private String content;
 
+    private Date timestamp;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false)
-    private Classroom classrooms;
+    private Classroom classroom;
 
-    @OneToMany()
-    @JoinTable(name = "News_user",
-            joinColumns = @JoinColumn(name = "news_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private Set<User> users = new HashSet<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id", referencedColumnName = "id", nullable = false)
+    private User user;
 
     public News() {}
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Long getId() {
         return id;
@@ -42,20 +51,27 @@ public class News {
         this.content = content;
     }
 
-    public Classroom getClassrooms() {
-        return classrooms;
+    public Classroom getClassroom() {
+        return classroom;
     }
 
-    public void setClassrooms(Classroom classrooms) {
-        this.classrooms = classrooms;
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
+    }
+    public Date getTimestamp() {
+        return timestamp;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -63,11 +79,11 @@ public class News {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         News news = (News) o;
-        return Objects.equals(id, news.id) && Objects.equals(content, news.content) && Objects.equals(classrooms, news.classrooms) && Objects.equals(users, news.users);
+        return Objects.equals(id, news.id) && Objects.equals(title, news.title) && Objects.equals(content, news.content) && Objects.equals(timestamp, news.timestamp) && Objects.equals(classroom, news.classroom);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content, classrooms, users);
+        return Objects.hash(id, title, content, timestamp, classroom);
     }
 }

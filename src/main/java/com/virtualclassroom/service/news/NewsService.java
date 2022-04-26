@@ -8,10 +8,7 @@ import java.util.Optional;
 
 public interface NewsService {
     List<News> getAllNews();
-
     void addNews(News news);
 
-    Optional<News> findByNewsId(Long id);
-
-    //Classroom get(Long id);
+    List<News> getByClassId(Long id);
 }

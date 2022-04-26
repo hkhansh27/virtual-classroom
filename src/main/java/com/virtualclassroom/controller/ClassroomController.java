@@ -98,7 +98,7 @@ public class ClassroomController {
             homework.setSize(file.getSize());
             var classroom = classroomService.getClassroomById(classroomId);
             homework.addUser(userService.getCurrentUser());
-            homework.setClassrooms(classroom);
+            homework.setClassroom(classroom);
             homeworkService.createHomework(homework);
             redirAttrs.addFlashAttribute("success", "Created homework successfully!!!");
         } catch (IOException e) {
