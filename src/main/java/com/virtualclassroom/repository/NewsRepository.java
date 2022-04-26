@@ -1,5 +1,6 @@
 package com.virtualclassroom.repository;
 
+import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.News;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,7 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
     @Query("SELECT DISTINCT news FROM News news JOIN news.user user  WHERE user.userName = :userName")
     List<News> findByUserName(@Param("userName") String userName);
+
+    @Query("SELECT DISTINCT news FROM News news JOIN news.classrooms classroom  WHERE classroom.id = :classroomId")
+    List<News> findByClassId(@Param("classroomId") Long classroomId);
 }
