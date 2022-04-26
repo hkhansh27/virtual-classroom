@@ -9,4 +9,5 @@ public interface HomeworkService {
     List<Homework> getAllHomework();
     void createHomework(Homework homework);
     Optional<Homework> findHomeworkById(Long id);
+    List<Homework> getHomeworkByClassIdAndUsername(Long id, String username);
 }

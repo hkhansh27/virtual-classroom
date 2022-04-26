@@ -25,9 +25,11 @@ public class Homework {
 
     private String name;
 
+    private String description;
+
     private Long size;
 
-    private int score;
+    private Integer score;
 
     @Lob
     private byte [] content;
@@ -82,12 +84,20 @@ public class Homework {
         this.content = content;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void addUser(User user) {

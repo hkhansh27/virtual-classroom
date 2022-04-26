@@ -70,19 +70,22 @@ public class ClassroomController {
         });
         model.addAttribute("newClassroom", new Classroom());
         model.addAttribute("classroomDtoList", classrooomDtoList);
+
         return "course-list";
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @GetMapping("/{id}")
-    public String getCourseDetails(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("classroomId", id);
+    @GetMapping("/{classroomId}")
+    public String getCourseDetails(@PathVariable("classroomId") Long classroomId, Model model) {
+        var homeworkList = homeworkService.getHomeworkByClassIdAndUsername(classroomId, userService.getCurrentUser().getUserName());
+        model.addAttribute("classroomId", classroomId);
         model.addAttribute("homework", new Homework());
+        model.addAttribute("homeworkList", homeworkList);
         return "course-details";
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @PostMapping("/course_details")
+    @PostMapping("/upload")
     public String upload(@RequestParam("file") MultipartFile file, @RequestParam(name = "classroomId") Long classroomId, Model model, Homework homework, RedirectAttributes redirAttrs) {
         if (file.isEmpty()) {
             redirAttrs.addFlashAttribute("error", "Failed to store empty file");
@@ -103,5 +106,13 @@ public class ClassroomController {
         }
         redirAttrs.addFlashAttribute("success", "File uploaded successfully");
         return "redirect:/classroom/" + classroomId;
+    }
+
+    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
+    @GetMapping("/{classroomId}/homeworks")
+    public String getHomework(@PathVariable("classroomId") Long classroomId, Model model) {
+        var homeworkList = homeworkService.getHomeworkByClassIdAndUsername(classroomId, userService.getCurrentUser().getUserName());
+        model.addAttribute("homeworkList", homeworkList);
+        return "homework-list";
     }
 }

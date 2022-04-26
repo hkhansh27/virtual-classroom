@@ -26,6 +26,11 @@ public class HomeworkServiceImpl implements HomeworkService{
     }
 
     @Override
+    public List<Homework> getHomeworkByClassIdAndUsername(Long id, String username) {
+        return homeworkRepository.findByClassIdAndUser(id, username);
+    }
+
+    @Override
     public Optional<Homework> findHomeworkById(Long id) {
         return homeworkRepository.findById(id);
     }
