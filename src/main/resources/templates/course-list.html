@@ -2,10 +2,10 @@
 <html lang="vi"
       layout:decorate="_layout"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 >
-<head th:replace="_layout :: head(type='tag')">
-    <title></title>
+<head>
+    <title> Classroom </title>
 </head>
 
 <body>
@@ -70,9 +70,91 @@
                                         <i class="fa fa-angle-down"></i>
                                     </button>
                                 </div>
+                                <div class="course-collapse-btn" sec:authorize="hasAnyAuthority('TEACHER')">
+                                    <button class="btn collapsed" data-bs-target="#create-classroom"
+                                            data-bs-toggle="modal"
+                                            data-bs-whatever="create-classroom" type="button">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                        Create a new classroom
+                                    </button>
+                                </div>
+                                <div class="course-collapse-btn">
+                                    <button class="btn collapsed" data-bs-target="#join-classroom"
+                                            data-bs-toggle="modal"
+                                            data-bs-whatever="join-classroom" type="button">
+                                        <i class="fa fa-bars"></i>
+                                        Join to the classroom
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <!-- Course Top Bar End -->
+                        <!-- Start create new classroom form -->
+                        <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
+                             id="create-classroom"
+                             tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                                type="button"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" th:action="@{/classroom/save}" th:object="${newClassroom}">
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="class-name">Class name</label>
+                                                <input class="form-control" id="class-name" required
+                                                       th:field="*{nameClass}" type="text">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="col-form-label" for="class-description">Class
+                                                    description</label>
+                                                <input class="form-control" id="class-description" required
+                                                       th:field="*{descriptionClass}" type="text">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    Close
+                                                </button>
+                                                <button class="btn btn-primary" type="submit">Create</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End create new classroom form -->
+                        <!-- Start join classroom form -->
+                        <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
+                             id="join-classroom"
+                             tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel1">Join to the classroom</h5>
+                                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                                type="button"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" th:action="@{/classroom/join}" th:object="${newClassroom}">
+                                            <div class="mb-3">
+                                                <input class="form-control" name="keyword" required type="text">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    Close
+                                                </button>
+                                                <button class="btn btn-primary" type="submit">Join</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End join classroom form -->
 
                         <!-- Course Collapse Start -->
                         <div class="collapse" id="collapseFilters">
@@ -226,12 +308,16 @@
                                                         <span class="sale-price">Free</span>
                                                         </span>
                                                 </div>
-                                                <h3 class="title" th:text="${classroom.getNameClass()}"><a href="course-details.html">Design 101: Product &
+                                                <h3 class="title" th:text="${classroom.getNameClass()}"><a
+                                                        href="course-details.html">Design 101: Product &
                                                     Web Design Course</a></h3>
-                                                <p class="author-name" th:each="teacher: ${classroom.getTeachers()}" th:text="${teacher.getUserName()}">Andrew paker</p>
+                                                <p class="author-name" th:each="teacher: ${classroom.getTeachers()}"
+                                                   th:text="${teacher.getUserName()}">Andrew paker</p>
                                             </div>
                                             <div class="courses-meta">
-                                                <p class="student" th:text="|${classroom.getQuanityStudent()} student(s)|"><i class="fa fa-user-o"></i> 10 Student</p>
+                                                <p class="student"
+                                                   th:text="|${classroom.getQuanityStudent()} student(s)|"><i
+                                                        class="fa fa-user-o"></i> 10 Student</p>
                                                 <div class="rating">
                                                     <div class="rating-star">
                                                         <div class="rating-active" style="width: 60%;"></div>

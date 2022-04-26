@@ -32,13 +32,6 @@ public class ClassroomController {
         this.homeworkService = homeworkService;
     }
 
-    @PreAuthorize("hasAuthority('TEACHER')")
-    @GetMapping("/create")
-    public String classroom(Model model) {
-        model.addAttribute("classroom", new Classroom());
-        return "classroom";
-    }
-
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @PostMapping("/save")
     public String saveClassroom(Classroom classroom) {
@@ -46,7 +39,7 @@ public class ClassroomController {
         classroom.setCodeClass(Helper.getRandomNumberString());
         user.getClassrooms().add(classroom);
         userService.addUser(user);
-        return "classroom";
+        return "redirect:/classroom";
     }
 
     @PostMapping("/join")
@@ -55,11 +48,11 @@ public class ClassroomController {
         classroom = classroomService.findClassByCodeID(keyword);
         user.getClassrooms().add(classroom);
         userService.addUser(user);
-        return "classroom";
+        return "redirect:/classroom/" + classroom.getId();
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @GetMapping("/list")
+    @GetMapping()
     public String listClassroom(Model model) {
         List<ClassrooomDto> classrooomDtoList = new ArrayList<>();
         List<Classroom> classroomList = classroomService.getClassesByUsername(userService.getCurrentUser().getUserName());
@@ -75,6 +68,7 @@ public class ClassroomController {
                     studentList,
                     studentList.size()));
         });
+        model.addAttribute("newClassroom", new Classroom());
         model.addAttribute("classroomDtoList", classrooomDtoList);
         return "course-list";
     }
