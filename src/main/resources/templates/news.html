@@ -54,12 +54,12 @@
               </div>
               <div class="blog-content">
                 <div class="meta">
-                  <a href="blog-details.html" th:each="news: ${news?.getTeachers()}" th:text="${news?.getUserName()}"><i class="fa fa-user-o"></i> Andrew paker</a>
+                  <a href="blog-details.html"th:each="teacher: ${news?.getTeachers()}" th:text="${teacher?.getUserName()}"><i class="fa fa-user-o"></i> Andrew paker</a>
                   <a href="#" th:text="${news?.getTimestamp()}" ><i class="fa fa-calendar-o"></i> 01 Jul, 2021</a>
                 </div>
                 <h3 class="title" th:text="${news?.getTitle()}" ><a href="blog-details.html">LIVE SHOW: Business memes, dad lessons, selling to CROs</a></h3>
                 <p th:text="${news?.getContent()}">World-class training and development programs developed by top teachers. Build skills with courses, certificates, and degrees online from world-class universities and companies.</p>
-                <a href="blog-details.html" class="btn btn-primary btn-hover-heading-color">Read More</a>
+                <a th:href="@{'/news-details?newsId=' + ${newsId}}" class="btn btn-primary btn-hover-heading-color">Read More</a>
               </div>
             </div>
             <!-- Single Blog List End -->

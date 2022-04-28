@@ -11,9 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Long.parseLong;
 
@@ -24,6 +22,7 @@ public class NewsController {
     private final ClassroomService classroomService;
     private final UserService userService;
 
+
     public NewsController(NewsService newsService, ClassroomService classroomService, UserService userService) {
         this.newsService = newsService;
         this.classroomService = classroomService;
@@ -32,9 +31,10 @@ public class NewsController {
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping()
-    public String getNewsPage(@RequestParam Long classroomId,Model model) {
+    public String getNewsPage(@RequestParam Long classroomId,Model model, @NotNull News newss) {
         List<NewsDto> newsDtoList = new ArrayList<>();
         var newsList = newsService.getByClassId(classroomId);
+        //var getNewsId = newsService.getNewsById(newss.getId());
         newsList.forEach(news -> {
             var teacherList = userService.findByRoleAndClassroom("TEACHER", news.getId());
             var studentList = userService.findByRoleAndClassroom("STUDENT", news.getId());
@@ -47,6 +47,7 @@ public class NewsController {
            studentList));
         });
         model.addAttribute("classroomId", classroomId);
+        //model.addAttribute("newsId",getNewsId);
         model.addAttribute("newsDtoList", newsDtoList);
         return "news";
     }
@@ -64,8 +65,9 @@ public class NewsController {
     public String postAddNews(@RequestParam(value = "classroomId") Long classroomId,@NotNull News news) {
         news.setTimestamp(new Date());
         news.setClassroom(classroomService.getClassroomById(classroomId));
-        news.setUser(userService.getCurrentUser());
+        news.setUser(Collections.singleton(userService.getCurrentUser()));
         newsService.addNews(news);
         return "redirect:/news/add/" + classroomId;
     }
+
 }

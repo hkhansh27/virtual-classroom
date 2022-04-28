@@ -11,11 +11,11 @@ import java.util.Optional;
 
 public interface NewsRepository extends JpaRepository<News, Long> {
     @Query("SELECT news FROM News news WHERE news.id = ?1")
-    Optional<News> findById(Long id);
+    List<News> findByNewsId(@Param("newsId") Long newsId);
 
     @Query("SELECT DISTINCT news FROM News news JOIN news.user user  WHERE user.userName = :userName")
     List<News> findByUserName(@Param("userName") String userName);
 
-    @Query(value="SELECT DISTINCT news FROM News news JOIN news.classrooms classroom  WHERE classroom.id = :classroomId", nativeQuery = true)
+    @Query("SELECT news FROM News news JOIN news.classroom classroom WHERE classroom.id = news.classroom.id AND classroom.id = :classroomId")
     List<News> findByClassId(@Param("classroomId") Long classroomId);
 }

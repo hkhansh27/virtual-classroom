@@ -26,6 +26,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"))
     private Set<Classroom> classrooms = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Comment> comments = new HashSet<>();
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -35,7 +38,7 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private Set<Homework> homeworks = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @ManyToMany (mappedBy = "user")
     private Set<News> news = new HashSet<>();
 
     public User() {

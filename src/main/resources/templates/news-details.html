@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="vi"
+      layout:decorate="_layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+>
+<head th:replace="_layout :: head(type='tag')">
+    <title></title>
+</head>
+
+<body>
+
+<div class="main-wrapper" layout:fragment="main_body">
+
+    <!-- Page Banner Start -->
+    <div class="section page-banner-section bg-color-1">
+
+        <img class="shape-1" th:src="@{images/shape/shape-5.png}" alt="shape">
+        <img class="shape-2" th:src="@{images/shape/shape-6.png}" alt="shape">
+        <img class="shape-3" th:src="@{images/shape/shape-7.png}" alt="shape">
+
+        <img class="shape-4" th:src="@{images/shape/shape-21.png}" alt="shape">
+        <img class="shape-5" th:src="@{images/shape/shape-21.png}" alt="shape">
+
+        <div class="container">
+            <!-- Page Banner Content Start -->
+            <div class="page-banner-content">
+                <h2 class="title">Blog Details</h2>
+                <ul class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Blog Details</li>
+                </ul>
+            </div>
+            <!-- Page Banner Content End -->
+        </div>
+    </div>
+    <!-- Page Banner End -->
+
+    <!-- Blog Start -->
+    <div class="section section-padding">
+        <div class="container">
+            <!-- Blog Wrapper Start -->
+            <div class="blog-wrapper-02">
+                <div class="row justify-content-between">
+                    <div class="col-lg-8">
+
+                        <!-- Blog Wrapper Start -->
+                        <div class="blog-details-wrapper" >
+
+                            <!-- Blog Details Images Start -->
+                            <div class="blog-details-image">
+                                <a href="#"><img th:src="@{images/blog/blog-list-1.jpg}" alt="Blog"></a>
+                                <span class="tags">Education</span>
+                            </div>
+                            <!-- Blog Details Images End -->
+
+                            <!-- Blog Details Content Start -->
+                            <div class="blog-details-content" th:each="news: ${newsDetailsDtoList}">
+                                <div class="meta">
+                                    <a href="#" th:each="teacher: ${news.getTeachers()}" th:text="${teacher.getUserName()}"><i class="fa fa-user-o"></i> Andrew paker</a>
+                                    <a href="#" th:text="${news.getTimestamp()}"><i class="fa fa-calendar"></i> 01 Jul, 2021</a>
+                                </div>
+                                <h3 class="title" th:text="${news.getTitle()}">LIVE SHOW: Business memes, dad lessons, selling to CROs</h3>
+                                <p th:text="${news.getContent()}">World-class training and development programs developed by top teachers. Build skills with courses, certificates, and degrees online from world-class universities and companies. from the National Research University Higher School of Economics (HSE University) is the first fully online data science master’s program from a Russian university on Coursera. Students can take courses in contemporary data analysis</p>
+                            </div>
+                            <!-- Blog Details Content End -->
+
+                            <!-- Blog tags & Social Start -->
+                            <div class="blog-tags-social">
+                                <div class="blog-tags">
+                                    <span class="label">Tags:</span>
+                                    <ul>
+                                        <li><a href="#">LMS</a></li>
+                                        <li><a href="#">Business</a></li>
+                                        <li><a href="#">Courses</a></li>
+                                    </ul>
+                                </div>
+                                <div class="blog-social">
+                                    <ul class="social">
+                                        <li><a class="facebook" href="#"><i class="fa fa-facebook-f"></i></a></li>
+                                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a class="pinterest" href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Blog tags & Social End -->
+
+                            <!-- Commtent Wrapper Start -->
+                            <div class="commtent-wrapper">
+
+                                <!-- Commtent Box Start -->
+                                <div class="comment-box">
+                                    <h3 class="comment-title">Comment (03)</h3>
+
+                                    <ul class="commtent-items">
+                                        <li>
+                                            <!-- Single Commtent Start -->
+                                            <div class="single-comment">
+                                                <div class="comment-author">
+                                                    <img th:src="@{images/author-1.jpg}" alt="Author">
+                                                </div>
+                                                <div class="comment-content">
+                                                    <h4 class="name">Michel Holder</h4>
+                                                    <p>We're known for one thing every where we go excellent customer experiences purpose. consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
+
+                                                    <div class="meta">
+                                                        <span class="date">Dec 28, 2020 at 1:47 am</span>
+                                                        <a class="reply" href="#"><i class="fa fa-reply-all"></i> Reply</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Single Commtent End -->
+                                        </li>
+                                        <li>
+                                            <!-- Single Commtent Start -->
+                                            <div class="single-comment">
+                                                <div class="comment-author">
+                                                    <img th:src="@{images/author-2.jpg}" alt="Author">
+                                                </div>
+                                                <div class="comment-content">
+                                                    <h4 class="name">Michel Holder</h4>
+                                                    <p>We're known for one thing everywhere we go excellent customer experiences purpose. consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
+
+                                                    <div class="meta">
+                                                        <span class="date">Dec 28, 2020 at 1:47 am</span>
+                                                        <a class="reply" href="#"><i class="fa fa-reply-all"></i> Reply</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Single Commtent End -->
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Commtent Box End -->
+
+                                <!-- Commtent Form Start -->
+                                <div class="comment-form">
+                                    <h3 class="comment-title">Leave a Comment</h3>
+
+                                    <div class="comment-form-wrapper">
+                                        <form action="#">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <!-- Single Form Start -->
+                                                    <div class="single-form">
+                                                        <textarea class="form-control" placeholder="Your Message*"></textarea>
+                                                    </div>
+                                                    <!-- Single Form End -->
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <!-- Single Form Start -->
+                                                    <div class="single-form">
+                                                        <button class="btn btn-primary btn-hover-heading-color">Post Comment</button>
+                                                    </div>
+                                                    <!-- Single Form End -->
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- Commtent Form End -->
+
+                            </div>
+                            <!-- Commtent Wrapper End -->
+
+                        </div>
+                        <!-- Blog Wrapper End -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- Blog Wrapper End -->
+        </div>
+    </div>
+    <!-- Blog End -->
+    <!-- Back to Top End -->
+    <button class="back-btn" id="backBtn"><i class="fa fa-angle-up"></i></button>
+    <!-- Back to Top End -->
+
+</div>
+
+</body>
+
+</html>
