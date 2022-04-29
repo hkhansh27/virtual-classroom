@@ -1,11 +1,13 @@
 package com.virtualclassroom.controller;
 
 import com.virtualclassroom.dto.ClassrooomDto;
+import com.virtualclassroom.dto.NewsDto;
 import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.Homework;
 import com.virtualclassroom.model.User;
 import com.virtualclassroom.service.classroom.ClassroomService;
 import com.virtualclassroom.service.homework.HomeworkService;
+import com.virtualclassroom.service.news.NewsService;
 import com.virtualclassroom.service.user.UserService;
 import com.virtualclassroom.utils.Helper;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/classroom")
@@ -25,11 +28,13 @@ public class ClassroomController {
     private final UserService userService;
     private final ClassroomService classroomService;
     private final HomeworkService homeworkService;
+    private final NewsService newsService;
 
-    public ClassroomController(UserService userService, ClassroomService classroomService, HomeworkService homeworkService) {
+    public ClassroomController(UserService userService, ClassroomService classroomService, HomeworkService homeworkService, NewsService newsService) {
         this.userService = userService;
         this.classroomService = classroomService;
         this.homeworkService = homeworkService;
+        this.newsService = newsService;
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
@@ -78,9 +83,26 @@ public class ClassroomController {
     @GetMapping("/{classroomId}")
     public String getCourseDetails(@PathVariable("classroomId") Long classroomId, Model model) {
         var homeworkList = homeworkService.getHomeworkByClassIdAndUsername(classroomId, userService.getCurrentUser().getUserName());
+        var homeworkTeacherList = homeworkService.findHomeworkByTeacher(classroomId);
         model.addAttribute("classroomId", classroomId);
-        model.addAttribute("homework", new Homework());
+        model.addAttribute("homeworkObj", new Homework());
         model.addAttribute("homeworkList", homeworkList);
+        model.addAttribute("homeworkTeacherList", homeworkTeacherList);
+        //News
+//        List<NewsDto> newsDtoList = new ArrayList<>();
+//        var newsList = newsService.getByClassId(classroomId);
+//        newsList.forEach(news -> {
+//            var teacherList = userService.findByRoleAndClassroom("TEACHER", news.getId());
+//            var studentList = userService.findByRoleAndClassroom("STUDENT", news.getId());
+//            newsDtoList.add(new NewsDto(
+//                    news.getId(),
+//                    news.getTitle(),
+//                    news.getContent(),
+//                    news.getTimestamp(),
+//                    teacherList,
+//                    studentList));
+//        });
+//        model.addAttribute("newsDtoList", newsDtoList);
         return "course-details";
     }
 
@@ -106,13 +128,5 @@ public class ClassroomController {
         }
         redirAttrs.addFlashAttribute("success", "File uploaded successfully");
         return "redirect:/classroom/" + classroomId;
-    }
-
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @GetMapping("/{classroomId}/homeworks")
-    public String getHomework(@PathVariable("classroomId") Long classroomId, Model model) {
-        var homeworkList = homeworkService.getHomeworkByClassIdAndUsername(classroomId, userService.getCurrentUser().getUserName());
-        model.addAttribute("homeworkList", homeworkList);
-        return "homework-list";
     }
 }

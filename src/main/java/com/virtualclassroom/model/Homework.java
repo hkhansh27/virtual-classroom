@@ -1,5 +1,8 @@
 package com.virtualclassroom.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,6 +26,16 @@ public class Homework {
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> users = new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Getter
+    @Setter
+    private Homework parentHomework;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "parentHomework")
+    @Getter
+    @Setter
+    private Set<Homework> homeworkSet = new HashSet<>();
+
     private String name;
 
     private String description;
@@ -30,6 +43,8 @@ public class Homework {
     private Long size;
 
     private Integer score;
+
+    private String homeworkCode;
 
     @Lob
     private byte [] content;
@@ -98,6 +113,14 @@ public class Homework {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getHomeworkCode() {
+        return homeworkCode;
+    }
+
+    public void setHomeworkCode(String homeworkCode) {
+        this.homeworkCode = homeworkCode;
     }
 
     public void addUser(User user) {
