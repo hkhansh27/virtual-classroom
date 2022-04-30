@@ -11,6 +11,7 @@ public interface NewsService {
 
     List<News> getNewsById(Long id);
     void addNews(News news);
+    News getNewsByNewsId(Long id);
 
     List<News> getByClassId(Long id);
 }

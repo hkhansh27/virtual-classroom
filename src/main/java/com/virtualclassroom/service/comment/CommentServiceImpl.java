@@ -5,6 +5,8 @@ import com.virtualclassroom.model.News;
 import com.virtualclassroom.repository.CommentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CommentServiceImpl implements CommentService {
     public final CommentRepository commentRepository;
@@ -16,5 +18,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void addComment(Comment comment) {
         commentRepository.save(comment);
+    }
+
+    @Override
+    public List<Comment> getByNewsId(Long id) {
+        return commentRepository.findByNewsId(id);
     }
 }

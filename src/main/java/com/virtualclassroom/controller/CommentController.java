@@ -3,7 +3,6 @@ package com.virtualclassroom.controller;
 import com.virtualclassroom.dto.CommentDto;
 import com.virtualclassroom.dto.NewsDto;
 import com.virtualclassroom.model.Comment;
-import com.virtualclassroom.model.User;
 import com.virtualclassroom.service.comment.CommentService;
 import com.virtualclassroom.service.news.NewsService;
 import com.virtualclassroom.service.user.UserService;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/news-details")
@@ -35,10 +33,12 @@ public class CommentController {
     @GetMapping()
     public String getNewsDetailsPage(@RequestParam Long newsId,Model model) {
         List<NewsDto> newsDetailsDtoList = new ArrayList<>();
+        List<CommentDto> commentDtoList = new ArrayList<>();
         var newsDetailsList = newsService.getNewsById(newsId);
+        var commentList = commentService.getByNewsId(newsId);
         newsDetailsList.forEach(news -> {
-            var teacherList = userService.findByRoleAndClassroom("TEACHER", news.getId());
-            var studentList = userService.findByRoleAndClassroom("STUDENT", news.getId());
+            var teacherList = userService.findByRoleAndNews("TEACHER", news.getId());
+            var studentList = userService.findByRoleAndNews("STUDENT", news.getId());
             newsDetailsDtoList.add(new NewsDto(
                     news.getId(),
                     news.getTitle(),
@@ -47,17 +47,51 @@ public class CommentController {
                     teacherList,
                     studentList));
         });
+        commentList.forEach(comment -> {
+            var teacherList = userService.findByRoleAndComment("TEACHER", comment.getId());
+            var studentList = userService.findByRoleAndComment("STUDENT", comment.getId());
+            commentDtoList.add(new CommentDto(
+                    comment.getId(),
+                    comment.getContent(),
+                    comment.getTimestamp(),
+                    teacherList,
+                    studentList,
+                    studentList.size()));
+        });
         model.addAttribute("newsId", newsId);
         model.addAttribute("newsDetailsDtoList", newsDetailsDtoList);
+        model.addAttribute("commentDtoList", commentDtoList);
+        model.addAttribute("comment", new Comment());
         return "news-details";
     }
 
+//    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
+//    @GetMapping()
+//    public String getComment(@RequestParam Long newsId,Model model) {
+//        List<CommentDto> commentDtoList = new ArrayList<>();
+//        var commentList = commentService.getByNewsId(newsId);
+//        commentList.forEach(comment -> {
+//            var teacherList = userService.findByRoleAndComment("TEACHER", comment.getId());
+//            var studentList = userService.findByRoleAndComment("STUDENT", comment.getId());
+//            commentDtoList.add(new CommentDto(
+//                    comment.getId(),
+//                    comment.getContent(),
+//                    comment.getTimestamp(),
+//                    teacherList,
+//                    studentList,
+//                    studentList.size()));
+//        });
+//        model.addAttribute("newsId", newsId);
+//        model.addAttribute("commentDtoList", commentDtoList);
+//        model.addAttribute("comment", new Comment());
+//        return "news-details";
+//    }
+
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping("/{newsId}")
-    public String addCmt(@PathVariable("newsId") Long newsId, Model model, @NotNull Comment comment) {
+    public String addCmt(@PathVariable("newsId") Long newsId, Model model) {
         model.addAttribute("newsId", newsId);
         model.addAttribute("comment", new Comment());
-        commentService.addComment(comment);
         return "news-details";
     }
 
@@ -65,9 +99,9 @@ public class CommentController {
     @PostMapping()
     public String postAddComment(@RequestParam(value = "newsId") Long newsId,@NotNull Comment comment) {
         comment.setTimestamp(new Date());
-        //comment.setNews(newsService.getNewsById(newsId));
+        comment.setNews(newsService.getNewsByNewsId(newsId));
         comment.setUser(userService.getCurrentUser());
         commentService.addComment(comment);
-        return "redirect:/news-details/" + newsId;
+        return "redirect:/news-details?newsId=" + newsId;
     }
 }

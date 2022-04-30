@@ -34,10 +34,9 @@ public class NewsController {
     public String getNewsPage(@RequestParam Long classroomId,Model model, @NotNull News newss) {
         List<NewsDto> newsDtoList = new ArrayList<>();
         var newsList = newsService.getByClassId(classroomId);
-        //var getNewsId = newsService.getNewsById(newss.getId());
         newsList.forEach(news -> {
-            var teacherList = userService.findByRoleAndClassroom("TEACHER", news.getId());
-            var studentList = userService.findByRoleAndClassroom("STUDENT", news.getId());
+            var teacherList = userService.findByRoleAndNews("TEACHER", news.getId());
+            var studentList = userService.findByRoleAndNews("STUDENT", news.getId());
         newsDtoList.add(new NewsDto(
            news.getId(),
            news.getTitle(),
@@ -47,7 +46,6 @@ public class NewsController {
            studentList));
         });
         model.addAttribute("classroomId", classroomId);
-        //model.addAttribute("newsId",getNewsId);
         model.addAttribute("newsDtoList", newsDtoList);
         return "news";
     }

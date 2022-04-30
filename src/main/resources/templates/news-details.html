@@ -58,7 +58,7 @@
                             <div class="blog-details-content" th:each="news: ${newsDetailsDtoList}">
                                 <div class="meta">
                                     <a href="#" th:each="teacher: ${news.getTeachers()}" th:text="${teacher.getUserName()}"><i class="fa fa-user-o"></i> Andrew paker</a>
-                                    <a href="#" th:text="${news.getTimestamp()}"><i class="fa fa-calendar"></i> 01 Jul, 2021</a>
+                                    <a href="#" th:text="${news.getTimestamp()}" ><i class="fa fa-calendar-o"></i> 01 Jul, 2021</a>
                                 </div>
                                 <h3 class="title" th:text="${news.getTitle()}">LIVE SHOW: Business memes, dad lessons, selling to CROs</h3>
                                 <p th:text="${news.getContent()}">World-class training and development programs developed by top teachers. Build skills with courses, certificates, and degrees online from world-class universities and companies. from the National Research University Higher School of Economics (HSE University) is the first fully online data science master’s program from a Russian university on Coursera. Students can take courses in contemporary data analysis</p>
@@ -86,43 +86,26 @@
                             <!-- Blog tags & Social End -->
 
                             <!-- Commtent Wrapper Start -->
-                            <div class="commtent-wrapper">
+                            <div class="commtent-wrapper" >
 
                                 <!-- Commtent Box Start -->
-                                <div class="comment-box">
-                                    <h3 class="comment-title">Comment (03)</h3>
-
-                                    <ul class="commtent-items">
+                                <div class="comment-box" >
+<!--                                    <h3 class="comment-title" th:text="|${comment.getQualityComment()} people commented|">Comment (03)</h3>-->
+                                    <ul class="commtent-items" th:each="comment: ${commentDtoList}">
                                         <li>
                                             <!-- Single Commtent Start -->
                                             <div class="single-comment">
+
                                                 <div class="comment-author">
                                                     <img th:src="@{images/author-1.jpg}" alt="Author">
                                                 </div>
                                                 <div class="comment-content">
-                                                    <h4 class="name">Michel Holder</h4>
-                                                    <p>We're known for one thing every where we go excellent customer experiences purpose. consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
+                                                    <h4 class="name" th:each="student: ${comment.getStudents()}" th:text="${student.getUserName()}">Michel Holder</h4>
+                                                    <h4 class="name" th:each="teacher: ${comment.getTeachers()}" th:text="${teacher.getUserName()}">Michel Holder</h4>
+                                                    <p th:text="${comment.getContent()}">We're known for one thing everywhere we go excellent customer experiences purpose. consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
 
                                                     <div class="meta">
-                                                        <span class="date">Dec 28, 2020 at 1:47 am</span>
-                                                        <a class="reply" href="#"><i class="fa fa-reply-all"></i> Reply</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single Commtent End -->
-                                        </li>
-                                        <li>
-                                            <!-- Single Commtent Start -->
-                                            <div class="single-comment">
-                                                <div class="comment-author">
-                                                    <img th:src="@{images/author-2.jpg}" alt="Author">
-                                                </div>
-                                                <div class="comment-content">
-                                                    <h4 class="name">Michel Holder</h4>
-                                                    <p>We're known for one thing everywhere we go excellent customer experiences purpose. consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
-
-                                                    <div class="meta">
-                                                        <span class="date">Dec 28, 2020 at 1:47 am</span>
+                                                        <span class="date" th:text="${comment.getTimestamp()}">Dec 28, 2020 at 1:47 am</span>
                                                         <a class="reply" href="#"><i class="fa fa-reply-all"></i> Reply</a>
                                                     </div>
                                                 </div>
@@ -138,12 +121,13 @@
                                     <h3 class="comment-title">Leave a Comment</h3>
 
                                     <div class="comment-form-wrapper">
-                                        <form action="#">
+                                        <form  th:action="@{/news-details}" th:object="${comment}" method="POST">
                                             <div class="row">
+                                                <input type="hidden" th:value="${newsId}" name="newsId">
                                                 <div class="col-md-12">
                                                     <!-- Single Form Start -->
                                                     <div class="single-form">
-                                                        <textarea class="form-control" placeholder="Your Message*"></textarea>
+                                                        <textarea th:field="*{content}" class="form-control" placeholder="Your Message*"></textarea>
                                                     </div>
                                                     <!-- Single Form End -->
                                                 </div>

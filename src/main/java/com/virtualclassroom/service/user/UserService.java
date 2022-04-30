@@ -15,6 +15,8 @@ public interface UserService {
     User findByEmail(String username);
     Set<User> findByRole(String role);
     Set<User> findByRoleAndClassroom(String role, Long classroomId);
+    Set<User> findByRoleAndNews(String role, Long newsId);
+    Set<User> findByRoleAndComment(String role, Long commentId);
     User get(Long id);
     List<Role> getRoles();
     void save(User user);
