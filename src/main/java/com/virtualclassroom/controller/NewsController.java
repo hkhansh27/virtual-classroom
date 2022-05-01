@@ -10,10 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
-
-import static java.lang.Long.parseLong;
 
 @Controller
 @RequestMapping("/news")
@@ -21,7 +18,6 @@ public class NewsController {
     private final NewsService newsService;
     private final ClassroomService classroomService;
     private final UserService userService;
-
 
     public NewsController(NewsService newsService, ClassroomService classroomService, UserService userService) {
         this.newsService = newsService;

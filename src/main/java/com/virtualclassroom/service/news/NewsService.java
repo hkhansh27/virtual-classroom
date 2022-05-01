@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface NewsService {
     List<News> getAllNews();
-
     List<News> getNewsById(Long id);
     void addNews(News news);
     News getNewsByNewsId(Long id);

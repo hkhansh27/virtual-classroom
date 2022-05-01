@@ -135,6 +135,14 @@ public class User {
         this.homeworks = homework;
     }
 
+    public Set<News> getNews() {
+        return news;
+    }
+
+    public void setNews(Set<News> news) {
+        this.news = news;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

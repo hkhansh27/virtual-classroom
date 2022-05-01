@@ -38,5 +38,4 @@ public class NewsServiceImpl implements NewsService {
     public List<News> getByClassId(Long id) {
         return newsRepository.findByClassId(id);
     }
-
 }

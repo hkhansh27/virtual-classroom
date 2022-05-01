@@ -85,6 +85,14 @@ public class Classroom {
         this.homeworks = homeworks;
     }
 
+    public void addHomework(Homework homework) {
+        this.homeworks.add(homework);
+    }
+
+    public void addNews(News news) {
+        this.news.add(news);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
