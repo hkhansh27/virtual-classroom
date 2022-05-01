@@ -52,42 +52,43 @@
 
                 <!-- Header Menu Start -->
                 <div class="header-menu d-none d-lg-block">
-                    <ul class="main-menu">
-                        <li>
-                            <a class="active" th:href="@{/}">Home</a>
-<!--                            <ul class="sub-menu">-->
-<!--                                <li><a class="active" href="index.html">Home 01</a></li>-->
-<!--                                <li><a href="index-2.html">Home 02</a></li>-->
-<!--                                <li><a href="index-3.html">Home 03</a></li>-->
-<!--                                <li><a href="index-4.html">Home 04</a></li>-->
-<!--                            </ul>-->
-                        </li>
-                        <li sec:authorize="hasAnyAuthority('TEACHER', 'ADMIN')">
-                            <a th:href="@{/user}">Users</a>
-<!--                            <ul class="sub-menu">-->
-<!--                                <li><a href="about.html">About 01</a></li>-->
-<!--                                <li><a href="about-2.html">About 02</a></li>-->
-<!--                                <li><a href="instructor.html">Instructor</a></li>-->
-<!--                                <li><a href="pricing.html">Pricing</a></li>-->
-<!--                                <li><a href="login-register.html">Login & Register</a></li>-->
-<!--                            </ul>-->
-                        </li>
-                        <li>
-                            <a th:href="@{/classroom}">Classrooms</a>
-<!--                            <ul class="sub-menu">-->
-<!--                                <li><a href="course-list.html">Course List</a></li>-->
-<!--                                <li><a href="course-grid.html">Course Grid</a></li>-->
-<!--                                <li><a href="course-details.html">Course Details</a></li>-->
-<!--                            </ul>-->
-                        </li>
-                        <li><a th:href="@{/login}">Login</a>
-<!--                            <ul class="sub-menu">-->
-<!--                                <li><a href="blog-grid.html">Blog Grid</a></li>-->
-<!--                                <li><a href="blog-list.html">Blog List</a></li>-->
-<!--                                <li><a href="blog-details.html">Blog Details</a></li>-->
-<!--                            </ul>-->
-                        </li>
-                    </ul>
+                    <div layout:fragment="breadcrumb"></div>
+<!--                    <ul class="main-menu">-->
+<!--                        <li>-->
+<!--                            <a class="active" th:href="@{/}">Home</a>-->
+<!--&lt;!&ndash;                            <ul class="sub-menu">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a class="active" href="index.html">Home 01</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="index-2.html">Home 02</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="index-3.html">Home 03</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="index-4.html">Home 04</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
+<!--                        </li>-->
+<!--                        <li sec:authorize="hasAnyAuthority('TEACHER', 'ADMIN')">-->
+<!--                            <a th:href="@{/user}">Users</a>-->
+<!--&lt;!&ndash;                            <ul class="sub-menu">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="about.html">About 01</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="about-2.html">About 02</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="instructor.html">Instructor</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="pricing.html">Pricing</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="login-register.html">Login & Register</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a th:href="@{/classroom}">Classrooms</a>-->
+<!--&lt;!&ndash;                            <ul class="sub-menu">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="course-list.html">Course List</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="course-grid.html">Course Grid</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="course-details.html">Course Details</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
+<!--                        </li>-->
+<!--                        <li><a th:href="@{/login}">Login</a>-->
+<!--&lt;!&ndash;                            <ul class="sub-menu">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="blog-grid.html">Blog Grid</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="blog-list.html">Blog List</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a href="blog-details.html">Blog Details</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
+<!--                        </li>-->
+<!--                    </ul>-->
                 </div>
                 <!-- Header Menu End -->
 

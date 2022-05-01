@@ -9,6 +9,45 @@
 </head>
 
 <body>
+<div layout:fragment="breadcrumb">
+    <ul class="main-menu">
+        <li>
+            <a th:href="@{/}">Home</a>
+            <!--                            <ul class="sub-menu">-->
+            <!--                                <li><a class="active" href="index.html">Home 01</a></li>-->
+            <!--                                <li><a href="index-2.html">Home 02</a></li>-->
+            <!--                                <li><a href="index-3.html">Home 03</a></li>-->
+            <!--                                <li><a href="index-4.html">Home 04</a></li>-->
+            <!--                            </ul>-->
+        </li>
+        <li sec:authorize="hasAnyAuthority('TEACHER', 'ADMIN')">
+            <a th:href="@{/user}">Users</a>
+            <!--                            <ul class="sub-menu">-->
+            <!--                                <li><a href="about.html">About 01</a></li>-->
+            <!--                                <li><a href="about-2.html">About 02</a></li>-->
+            <!--                                <li><a href="instructor.html">Instructor</a></li>-->
+            <!--                                <li><a href="pricing.html">Pricing</a></li>-->
+            <!--                                <li><a href="login-register.html">Login & Register</a></li>-->
+            <!--                            </ul>-->
+        </li>
+        <li>
+            <a class="active" th:href="@{/classroom}">Classrooms</a>
+            <!--                            <ul class="sub-menu">-->
+            <!--                                <li><a href="course-list.html">Course List</a></li>-->
+            <!--                                <li><a href="course-grid.html">Course Grid</a></li>-->
+            <!--                                <li><a href="course-details.html">Course Details</a></li>-->
+            <!--                            </ul>-->
+        </li>
+        <li><a th:href="@{/login}">Login</a>
+            <!--                            <ul class="sub-menu">-->
+            <!--                                <li><a href="blog-grid.html">Blog Grid</a></li>-->
+            <!--                                <li><a href="blog-list.html">Blog List</a></li>-->
+            <!--                                <li><a href="blog-details.html">Blog Details</a></li>-->
+            <!--                            </ul>-->
+        </li>
+    </ul>
+</div>
+
 <div class="main-wrapper" layout:fragment="main_body">
     <!-- Page Banner Start -->
     <div class="section page-banner-section bg-color-1">
