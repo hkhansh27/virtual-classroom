@@ -80,12 +80,6 @@ public class AppController {
         return "login-register";
     }
 
-    @GetMapping("/homework_list")
-    public String getHomeworkListPage(Model model) {
-        model.addAttribute("homeworkList", homeworkService.getAllHomework());
-        return "homework-list";
-    }
-
     @GetMapping("/homework_list/download")
     public void download(@Param("id") Long id, HttpServletResponse response) throws IOException, ServletException {
         Optional<Homework> optionalHomework = homeworkService.findHomeworkById(id);

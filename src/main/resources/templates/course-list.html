@@ -5,10 +5,49 @@
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 >
 <head>
-    <title> Classroom </title>
+    <title> Classrooms </title>
 </head>
 
 <body>
+<div layout:fragment="breadcrumb">
+    <ul class="main-menu">
+        <li>
+            <a th:href="@{/}">Home</a>
+            <!--                            <ul class="sub-menu">-->
+            <!--                                <li><a class="active" href="index.html">Home 01</a></li>-->
+            <!--                                <li><a href="index-2.html">Home 02</a></li>-->
+            <!--                                <li><a href="index-3.html">Home 03</a></li>-->
+            <!--                                <li><a href="index-4.html">Home 04</a></li>-->
+            <!--                            </ul>-->
+        </li>
+        <li sec:authorize="hasAnyAuthority('TEACHER', 'ADMIN')">
+            <a th:href="@{/user}">Users</a>
+            <!--                            <ul class="sub-menu">-->
+            <!--                                <li><a href="about.html">About 01</a></li>-->
+            <!--                                <li><a href="about-2.html">About 02</a></li>-->
+            <!--                                <li><a href="instructor.html">Instructor</a></li>-->
+            <!--                                <li><a href="pricing.html">Pricing</a></li>-->
+            <!--                                <li><a href="login-register.html">Login & Register</a></li>-->
+            <!--                            </ul>-->
+        </li>
+        <li>
+            <a class="active" th:href="@{/classroom}">Classrooms</a>
+            <!--                            <ul class="sub-menu">-->
+            <!--                                <li><a href="course-list.html">Course List</a></li>-->
+            <!--                                <li><a href="course-grid.html">Course Grid</a></li>-->
+            <!--                                <li><a href="course-details.html">Course Details</a></li>-->
+            <!--                            </ul>-->
+        </li>
+        <li><a th:href="@{/login}">Login</a>
+            <!--                            <ul class="sub-menu">-->
+            <!--                                <li><a href="blog-grid.html">Blog Grid</a></li>-->
+            <!--                                <li><a href="blog-list.html">Blog List</a></li>-->
+            <!--                                <li><a href="blog-details.html">Blog Details</a></li>-->
+            <!--                            </ul>-->
+        </li>
+    </ul>
+</div>
+
 <div class="main-wrapper" layout:fragment="main_body">
     <!-- Page Banner Start -->
     <div class="section page-banner-section bg-color-1">
@@ -23,10 +62,10 @@
         <div class="container">
             <!-- Page Banner Content Start -->
             <div class="page-banner-content">
-                <h2 class="title">Course List</h2>
+                <h2 class="title">Classroom List</h2>
                 <ul class="breadcrumb justify-content-center">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Course</li>
+                    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                    <li class="breadcrumb-item active">Classrooms</li>
                 </ul>
             </div>
             <!-- Page Banner Content End -->
@@ -41,7 +80,7 @@
             <!-- Course List Wrapper Start -->
             <div class="course-list-wrapper">
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
 
                         <!-- Course Top Bar Start -->
                         <div class="course-top-bar">
@@ -293,8 +332,8 @@
 
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="grid">
-                                <div class="row" th:each="classroom: ${classroomDtoList}">
-                                    <div class="col-lg-4 col-sm-6">
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-6" th:each="classroom: ${classroomDtoList}">
                                         <!-- Single Courses Start -->
                                         <div class="single-course">
                                             <div class="courses-image">
@@ -455,135 +494,135 @@
                         <!-- Page Pagination End -->
 
                     </div>
-                    <div class="col-lg-3">
-                        <!-- Sidebar Wrapper Start -->
-                        <div class="sidebar-wrap-02">
+<!--                    <div class="col-lg-3">-->
+<!--                        &lt;!&ndash; Sidebar Wrapper Start &ndash;&gt;-->
+<!--                        <div class="sidebar-wrap-02">-->
 
-                            <!-- Sidebar Wrapper Start -->
-                            <div class="sidebar-widget-02">
-                                <h3 class="widget-title">Type of Courses</h3>
+<!--                            &lt;!&ndash; Sidebar Wrapper Start &ndash;&gt;-->
+<!--                            <div class="sidebar-widget-02">-->
+<!--                                <h3 class="widget-title">Type of Courses</h3>-->
 
-                                <div class="widget-checkbox">
-                                    <ul class="checkbox-list">
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox1" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox1">Free (11)</label>
-                                        </li>
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox2" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox2">Paid (11)</label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Sidebar Wrapper End -->
+<!--                                <div class="widget-checkbox">-->
+<!--                                    <ul class="checkbox-list">-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox1" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox1">Free (11)</label>-->
+<!--                                        </li>-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox2" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox2">Paid (11)</label>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Sidebar Wrapper End &ndash;&gt;-->
 
-                            <!-- Sidebar Wrapper Start -->
-                            <div class="sidebar-widget-02">
-                                <h3 class="widget-title">Categories</h3>
+<!--                            &lt;!&ndash; Sidebar Wrapper Start &ndash;&gt;-->
+<!--                            <div class="sidebar-widget-02">-->
+<!--                                <h3 class="widget-title">Categories</h3>-->
 
-                                <div class="widget-checkbox">
-                                    <ul class="checkbox-list">
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox3" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox3">Technology (11)</label>
-                                        </li>
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox4" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox4">Business (07)</label>
-                                        </li>
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox5" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox5">Development (11)</label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Sidebar Wrapper End -->
+<!--                                <div class="widget-checkbox">-->
+<!--                                    <ul class="checkbox-list">-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox3" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox3">Technology (11)</label>-->
+<!--                                        </li>-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox4" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox4">Business (07)</label>-->
+<!--                                        </li>-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox5" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox5">Development (11)</label>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Sidebar Wrapper End &ndash;&gt;-->
 
-                            <!-- Sidebar Wrapper Start -->
-                            <div class="sidebar-widget-02">
-                                <h3 class="widget-title">Instructor</h3>
+<!--                            &lt;!&ndash; Sidebar Wrapper Start &ndash;&gt;-->
+<!--                            <div class="sidebar-widget-02">-->
+<!--                                <h3 class="widget-title">Instructor</h3>-->
 
-                                <div class="widget-checkbox">
-                                    <ul class="checkbox-list">
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox6" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox6">Jimmy Jason (11)</label>
-                                        </li>
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox7" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox7">Harnold (07)</label>
-                                        </li>
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox8" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox8">Eric Madny (11)</label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Sidebar Wrapper End -->
+<!--                                <div class="widget-checkbox">-->
+<!--                                    <ul class="checkbox-list">-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox6" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox6">Jimmy Jason (11)</label>-->
+<!--                                        </li>-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox7" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox7">Harnold (07)</label>-->
+<!--                                        </li>-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox8" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox8">Eric Madny (11)</label>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Sidebar Wrapper End &ndash;&gt;-->
 
-                            <!-- Sidebar Wrapper Start -->
-                            <div class="sidebar-widget-02">
-                                <h3 class="widget-title">Ratings</h3>
+<!--                            &lt;!&ndash; Sidebar Wrapper Start &ndash;&gt;-->
+<!--                            <div class="sidebar-widget-02">-->
+<!--                                <h3 class="widget-title">Ratings</h3>-->
 
-                                <div class="widget-checkbox">
-                                    <ul class="checkbox-list">
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox9" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox9">
-                                                <div class="rating">
-                                                    <div class="rating-on" style="width: 100%;"></div>
-                                                </div>
-                                                (4.5)
-                                            </label>
-                                        </li>
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox10" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox10">
-                                                <div class="rating">
-                                                    <div class="rating-on" style="width: 60%;"></div>
-                                                </div>
-                                                (3.5)
-                                            </label>
-                                        </li>
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox11" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox11">
-                                                <div class="rating">
-                                                    <div class="rating-on" style="width: 40%;"></div>
-                                                </div>
-                                                (2)
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Sidebar Wrapper End -->
+<!--                                <div class="widget-checkbox">-->
+<!--                                    <ul class="checkbox-list">-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox9" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox9">-->
+<!--                                                <div class="rating">-->
+<!--                                                    <div class="rating-on" style="width: 100%;"></div>-->
+<!--                                                </div>-->
+<!--                                                (4.5)-->
+<!--                                            </label>-->
+<!--                                        </li>-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox10" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox10">-->
+<!--                                                <div class="rating">-->
+<!--                                                    <div class="rating-on" style="width: 60%;"></div>-->
+<!--                                                </div>-->
+<!--                                                (3.5)-->
+<!--                                            </label>-->
+<!--                                        </li>-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox11" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox11">-->
+<!--                                                <div class="rating">-->
+<!--                                                    <div class="rating-on" style="width: 40%;"></div>-->
+<!--                                                </div>-->
+<!--                                                (2)-->
+<!--                                            </label>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Sidebar Wrapper End &ndash;&gt;-->
 
-                            <!-- Sidebar Wrapper Start -->
-                            <div class="sidebar-widget-02">
-                                <h3 class="widget-title">Lavel</h3>
+<!--                            &lt;!&ndash; Sidebar Wrapper Start &ndash;&gt;-->
+<!--                            <div class="sidebar-widget-02">-->
+<!--                                <h3 class="widget-title">Lavel</h3>-->
 
-                                <div class="widget-checkbox">
-                                    <ul class="checkbox-list">
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox12" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox12">Beginner (11)</label>
-                                        </li>
-                                        <li class="form-check">
-                                            <input class="form-check-input" id="checkbox13" type="checkbox" value="">
-                                            <label class="form-check-label" for="checkbox13">Advanced (07)</label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Sidebar Wrapper End -->
+<!--                                <div class="widget-checkbox">-->
+<!--                                    <ul class="checkbox-list">-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox12" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox12">Beginner (11)</label>-->
+<!--                                        </li>-->
+<!--                                        <li class="form-check">-->
+<!--                                            <input class="form-check-input" id="checkbox13" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label" for="checkbox13">Advanced (07)</label>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Sidebar Wrapper End &ndash;&gt;-->
 
-                        </div>
-                        <!-- Sidebar Wrapper End -->
-                    </div>
+<!--                        </div>-->
+<!--                        &lt;!&ndash; Sidebar Wrapper End &ndash;&gt;-->
+<!--                    </div>-->
                 </div>
             </div>
             <!-- Course List Wrapper End -->

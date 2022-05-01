@@ -35,6 +35,9 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private Set<Homework> homeworks = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<News> news = new HashSet<>();
+
     public User() {
     }
 
@@ -127,6 +130,14 @@ public class User {
 
     public void setHomeworks(Set<Homework> homework) {
         this.homeworks = homework;
+    }
+
+    public Set<News> getNews() {
+        return news;
+    }
+
+    public void setNews(Set<News> news) {
+        this.news = news;
     }
 
     @Override

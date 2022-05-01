@@ -20,8 +20,11 @@ public class Classroom {
     @ManyToMany(mappedBy = "classrooms")
     private Set<User> users = new HashSet<>();
 
-    @OneToMany(mappedBy = "classrooms")
-    private Set<Homework> homework = new HashSet<>();
+    @OneToMany(mappedBy = "classroom")
+    private Set<Homework> homeworks = new HashSet<>();
+
+    @OneToMany(mappedBy = "classroom")
+    private Set<News> news = new HashSet<>();
 
     public Classroom() {
     }
@@ -74,12 +77,20 @@ public class Classroom {
         this.users.remove(user);
     }
 
-    public Set<Homework> getHomework() {
-        return homework;
+    public Set<Homework> getHomeworks() {
+        return homeworks;
     }
 
-    public void setHomework(Set<Homework> homework) {
-        this.homework = homework;
+    public void setHomeworks(Set<Homework> homeworks) {
+        this.homeworks = homeworks;
+    }
+
+    public void addHomework(Homework homework) {
+        this.homeworks.add(homework);
+    }
+
+    public void addNews(News news) {
+        this.news.add(news);
     }
 
     @Override

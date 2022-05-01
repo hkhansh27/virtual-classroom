@@ -1,11 +1,13 @@
 package com.virtualclassroom.controller;
 
 import com.virtualclassroom.dto.ClassrooomDto;
+import com.virtualclassroom.dto.NewsDto;
 import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.Homework;
 import com.virtualclassroom.model.User;
 import com.virtualclassroom.service.classroom.ClassroomService;
 import com.virtualclassroom.service.homework.HomeworkService;
+import com.virtualclassroom.service.news.NewsService;
 import com.virtualclassroom.service.user.UserService;
 import com.virtualclassroom.utils.Helper;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/classroom")
@@ -25,11 +28,13 @@ public class ClassroomController {
     private final UserService userService;
     private final ClassroomService classroomService;
     private final HomeworkService homeworkService;
+    private final NewsService newsService;
 
-    public ClassroomController(UserService userService, ClassroomService classroomService, HomeworkService homeworkService) {
+    public ClassroomController(UserService userService, ClassroomService classroomService, HomeworkService homeworkService, NewsService newsService) {
         this.userService = userService;
         this.classroomService = classroomService;
         this.homeworkService = homeworkService;
+        this.newsService = newsService;
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
@@ -70,19 +75,41 @@ public class ClassroomController {
         });
         model.addAttribute("newClassroom", new Classroom());
         model.addAttribute("classroomDtoList", classrooomDtoList);
+
         return "course-list";
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @GetMapping("/{id}")
-    public String getCourseDetails(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("classroomId", id);
-        model.addAttribute("homework", new Homework());
+    @GetMapping("/{classroomId}")
+    public String getCourseDetails(@PathVariable("classroomId") Long classroomId, Model model) {
+        var homeworkList = homeworkService.getHomeworkByClassIdAndUsername(classroomId, userService.getCurrentUser().getUserName());
+        var homeworkTeacherList = homeworkService.findHomeworkByTeacher(classroomId);
+        var classroomDetails = classroomService.getClassroomById(classroomId);
+        model.addAttribute("classroomId", classroomId);
+        model.addAttribute("homeworkObj", new Homework());
+        model.addAttribute("homeworkList", homeworkList);
+        model.addAttribute("homeworkTeacherList", homeworkTeacherList);
+        model.addAttribute("classroomDetails", classroomDetails);
+        //News
+//        List<NewsDto> newsDtoList = new ArrayList<>();
+//        var newsList = newsService.getByClassId(classroomId);
+//        newsList.forEach(news -> {
+//            var teacherList = userService.findByRoleAndClassroom("TEACHER", news.getId());
+//            var studentList = userService.findByRoleAndClassroom("STUDENT", news.getId());
+//            newsDtoList.add(new NewsDto(
+//                    news.getId(),
+//                    news.getTitle(),
+//                    news.getContent(),
+//                    news.getTimestamp(),
+//                    teacherList,
+//                    studentList));
+//        });
+//        model.addAttribute("newsDtoList", newsDtoList);
         return "course-details";
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @PostMapping("/course_details")
+    @PostMapping("/upload")
     public String upload(@RequestParam("file") MultipartFile file, @RequestParam(name = "classroomId") Long classroomId, Model model, Homework homework, RedirectAttributes redirAttrs) {
         if (file.isEmpty()) {
             redirAttrs.addFlashAttribute("error", "Failed to store empty file");
@@ -95,7 +122,7 @@ public class ClassroomController {
             homework.setSize(file.getSize());
             var classroom = classroomService.getClassroomById(classroomId);
             homework.addUser(userService.getCurrentUser());
-            homework.setClassrooms(classroom);
+            homework.setClassroom(classroom);
             homeworkService.createHomework(homework);
             redirAttrs.addFlashAttribute("success", "Created homework successfully!!!");
         } catch (IOException e) {
