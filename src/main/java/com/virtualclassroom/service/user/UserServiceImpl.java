@@ -78,6 +78,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByRoleAndClassroom(role, classroomId);
     }
 
+    @Override
+    public Set<User> findByRoleAndNews(String role, Long newsId) {
+        return userRepository.findByRoleAndNews(role, newsId);
+    }
+
+    @Override
+    public Set<User> findByRoleAndComment(String role, Long commentId) {
+        return userRepository.findByRoleAndComment(role, commentId);
+    }
+
     public User get(Long id) {
         return userRepository.findById(id).get();
     }

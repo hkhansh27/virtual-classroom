@@ -441,6 +441,16 @@
                                         </button>
                                     </form>
                                 </div>
+<<<<<<< HEAD
+<!--                                <ul class="description-list">-->
+<!--                                    <li><i class="fa fa-clock-o"></i> Duration <span>52 mins</span></li>-->
+<!--                                    <li><i class="fa fa-sliders"></i> Level <span>Expert</span></li>-->
+<!--                                    <li><i class="fa fa-file-o"></i> Lectures <span>4 Lectures</span></li>-->
+<!--                                    <li><i class="fa fa-language"></i> Language <span>English</span></li>-->
+<!--                                    <li><i class="fa fa-user-o"></i> Enrolled <span>4 Enrolled</span></li>-->
+<!--                                </ul>-->
+                                <a class="btn btn-outline-primary w-100" th:href="@{'/news?classroomId=' + ${classroomId}}">Add news</a>
+=======
                                 <!--                                <ul class="description-list">-->
                                 <!--                                    <li><i class="fa fa-clock-o"></i> Duration <span>52 mins</span></li>-->
                                 <!--                                    <li><i class="fa fa-sliders"></i> Level <span>Expert</span></li>-->
@@ -452,6 +462,7 @@
                                    th:href="@{'/news?classroomId=' + ${classroomId}}">Add news</a>
                                 <a class="btn btn-outline-primary w-100"
                                    th:href="@{'/homework?classroomId=' + ${classroomId}}" sec:authorize="hasAuthority('TEACHER')">View homeworks</a>
+>>>>>>> af5d701d1d30ae5257f8ed7265f7a7b9c16e04c3
                             </div>
                         </div>
                         <!-- Sidebar Details Video Description End -->

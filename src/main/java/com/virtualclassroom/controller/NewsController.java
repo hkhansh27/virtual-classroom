@@ -10,12 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import static java.lang.Long.parseLong;
+import java.util.*;
 
 @Controller
 @RequestMapping("/news")
@@ -32,12 +27,12 @@ public class NewsController {
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping()
-    public String getNewsPage(@RequestParam Long classroomId,Model model) {
+    public String getNewsPage(@RequestParam Long classroomId,Model model, @NotNull News newss) {
         List<NewsDto> newsDtoList = new ArrayList<>();
         var newsList = newsService.getByClassId(classroomId);
         newsList.forEach(news -> {
-            var teacherList = userService.findByRoleAndClassroom("TEACHER", news.getId());
-            var studentList = userService.findByRoleAndClassroom("STUDENT", news.getId());
+            var teacherList = userService.findByRoleAndNews("TEACHER", news.getId());
+            var studentList = userService.findByRoleAndNews("STUDENT", news.getId());
         newsDtoList.add(new NewsDto(
            news.getId(),
            news.getTitle(),
@@ -64,8 +59,9 @@ public class NewsController {
     public String postAddNews(@RequestParam(value = "classroomId") Long classroomId,@NotNull News news) {
         news.setTimestamp(new Date());
         news.setClassroom(classroomService.getClassroomById(classroomId));
-        news.setUser(userService.getCurrentUser());
+        news.setUser(Collections.singleton(userService.getCurrentUser()));
         newsService.addNews(news);
         return "redirect:/news/add/" + classroomId;
     }
+
 }
