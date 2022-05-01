@@ -34,28 +34,29 @@
     </div>
     <!-- Page Banner End -->
     <div class="container">
-        <div class="row">
-            <h1>List Homeworks</h1>
-        </div>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Student</th>
                 <th>Download</th>
-                <th>Score</th>
+                <th style="width: 50px">Score</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="homework: ${homeworkList}">
                 <td th:text="${homework.id}"></td>
                 <td th:text="${homework.name}"></td>
+                <td th:each="student : ${homework.getUsers()}" th:text="${student.getUserName()}"></td>
                 <td> <a th:href="@{'/homework_list/download?id=' + ${homework.id}}"><i class="fa fa-download"></i></a></td>
                 <td>
-                    <form th:action="@{/homework}" method="post">
+                    <form class="card p-2" th:action="@{/homework}" method="post">
                         <input type="hidden" name="homeworkId" th:value="${homework.id}">
-                        <input type="text" name="score" th:value="${homework.score}">
-                        <button type="submit"><i class="btn btn-warning">Send</i></button>
+                        <div class="input-group">
+                            <input type="text" name="score" th:value="${homework.score}" class="form-control" placeholder="Score">
+                            <button type="submit" class="btn btn-secondary">Grade</button>
+                        </div>
                     </form>
                 </td>
             </tr>
