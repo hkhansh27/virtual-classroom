@@ -84,10 +84,12 @@ public class ClassroomController {
     public String getCourseDetails(@PathVariable("classroomId") Long classroomId, Model model) {
         var homeworkList = homeworkService.getHomeworkByClassIdAndUsername(classroomId, userService.getCurrentUser().getUserName());
         var homeworkTeacherList = homeworkService.findHomeworkByTeacher(classroomId);
+        var classroomDetails = classroomService.getClassroomById(classroomId);
         model.addAttribute("classroomId", classroomId);
         model.addAttribute("homeworkObj", new Homework());
         model.addAttribute("homeworkList", homeworkList);
         model.addAttribute("homeworkTeacherList", homeworkTeacherList);
+        model.addAttribute("classroomDetails", classroomDetails);
         //News
 //        List<NewsDto> newsDtoList = new ArrayList<>();
 //        var newsList = newsService.getByClassId(classroomId);

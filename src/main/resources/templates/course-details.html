@@ -25,23 +25,23 @@
                     <span>(4.5)</span>
                 </div>
 
-                <h2 class="title">2021 Complete Python Bootcamp From Zero to Hero in Python </h2>
+                <h2 class="title" th:text="${classroomDetails.getNameClass()}">2021 Complete Python Bootcamp From Zero to Hero in Python </h2>
 
-                <p>Learn Python like a Professional Start from the basics and go all the way to creating your own
+                <p th:text="${classroomDetails.getDescriptionClass()}">Learn Python like a Professional Start from the basics and go all the way to creating your own
                     applications and games </p>
 
                 <div class="course-details-meta">
-                    <div class="meta-action">
-                        <div class="meta-author">
-                            <img alt="Author" th:src="@{/images/author-1.jpg}">
-                        </div>
-                        <div class="meta-name">
-                            <h5 class="name">Adam Helen</h5>
-                        </div>
-                    </div>
+<!--                    <div class="meta-action">-->
+<!--                        <div class="meta-author">-->
+<!--                            <img alt="Author" th:src="@{/images/author-1.jpg}">-->
+<!--                        </div>-->
+<!--                        <div class="meta-name">-->
+<!--                            <h5 class="name">Adam Helen</h5>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                     <div class="meta-action">
-                        <p class="label">Last Update : <span>2/12/2021</span></p>
+                        <p class="label">Code : <span th:text="${classroomDetails.getCodeClass()}">2/12/2021</span></p>
                     </div>
                 </div>
             </div>
@@ -160,122 +160,122 @@
                         </div>
 
                         <!-- Course Learn List Start -->
-                        <div class="course-learn-list">
-                            <h3 class="title">What you will learn</h3>
-                            <ul>
-                                <li>Become a UX designer.</li>
-                                <li>Become a UX designer.</li>
-                                <li>You will be able to add UX designer to your CV</li>
-                                <li>You will be able to add UX designer to your CV</li>
-                                <li>Build & test a full website design.</li>
-                                <li>Build & test a full website design.</li>
-                            </ul>
-                        </div>
+<!--                        <div class="course-learn-list">-->
+<!--                            <h3 class="title">What you will learn</h3>-->
+<!--                            <ul>-->
+<!--                                <li>Become a UX designer.</li>-->
+<!--                                <li>Become a UX designer.</li>-->
+<!--                                <li>You will be able to add UX designer to your CV</li>-->
+<!--                                <li>You will be able to add UX designer to your CV</li>-->
+<!--                                <li>Build & test a full website design.</li>-->
+<!--                                <li>Build & test a full website design.</li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
                         <!-- Course Learn List End -->
 
                         <!-- Course Lessons Start -->
-                        <div class="course-lessons">
+<!--                        <div class="course-lessons">-->
 
-                            <div class="lessons-top">
-                                <h3 class="title">Course Content</h3>
-                                <div class="lessons-time">
-                                    <span>10 Lessons</span>
-                                    <span>6h 40m</span>
-                                </div>
-                            </div>
+<!--                            <div class="lessons-top">-->
+<!--                                <h3 class="title">Course Content</h3>-->
+<!--                                <div class="lessons-time">-->
+<!--                                    <span>10 Lessons</span>-->
+<!--                                    <span>6h 40m</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <!-- Course Accordion Start -->
-                            <div class="course-accordion accordion" id="accordionCourse">
-                                <div class="accordion-item">
-                                    <button data-bs-target="#collapseOne" data-bs-toggle="collapse">Introduction
-                                    </button>
-                                    <div class="accordion-collapse collapse show" data-bs-parent="#accordionCourse"
-                                         id="collapseOne">
-                                        <div class="accordion-body">
-                                            <ul class="lessons-list">
-                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and
-                                                    Introductions <span>5:00</span></a></li>
-                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English
-                                                    Phrasal Verbs <span>3:17</span></a></li>
-                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to
-                                                    start?</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+<!--                            &lt;!&ndash; Course Accordion Start &ndash;&gt;-->
+<!--                            <div class="course-accordion accordion" id="accordionCourse">-->
+<!--                                <div class="accordion-item">-->
+<!--                                    <button data-bs-target="#collapseOne" data-bs-toggle="collapse">Introduction-->
+<!--                                    </button>-->
+<!--                                    <div class="accordion-collapse collapse show" data-bs-parent="#accordionCourse"-->
+<!--                                         id="collapseOne">-->
+<!--                                        <div class="accordion-body">-->
+<!--                                            <ul class="lessons-list">-->
+<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
+<!--                                                    Introductions <span>5:00</span></a></li>-->
+<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
+<!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
+<!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
+<!--                                                    start?</a></li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
 
-                                <div class="accordion-item">
-                                    <button class="collapsed" data-bs-target="#collapseTwo" data-bs-toggle="collapse">
-                                        Analysis
-                                    </button>
-                                    <div class="accordion-collapse collapse" data-bs-parent="#accordionCourse"
-                                         id="collapseTwo">
-                                        <div class="accordion-body">
-                                            <ul class="lessons-list">
-                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and
-                                                    Introductions <span>5:00</span></a></li>
-                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English
-                                                    Phrasal Verbs <span>3:17</span></a></li>
-                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to
-                                                    start?</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+<!--                                <div class="accordion-item">-->
+<!--                                    <button class="collapsed" data-bs-target="#collapseTwo" data-bs-toggle="collapse">-->
+<!--                                        Analysis-->
+<!--                                    </button>-->
+<!--                                    <div class="accordion-collapse collapse" data-bs-parent="#accordionCourse"-->
+<!--                                         id="collapseTwo">-->
+<!--                                        <div class="accordion-body">-->
+<!--                                            <ul class="lessons-list">-->
+<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
+<!--                                                    Introductions <span>5:00</span></a></li>-->
+<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
+<!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
+<!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
+<!--                                                    start?</a></li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
 
-                                <div class="accordion-item">
-                                    <button class="collapsed" data-bs-target="#collapseThree" data-bs-toggle="collapse">
-                                        Practical
-                                    </button>
-                                    <div class="accordion-collapse collapse" data-bs-parent="#accordionCourse"
-                                         id="collapseThree">
-                                        <div class="accordion-body">
-                                            <ul class="lessons-list">
-                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and
-                                                    Introductions <span>5:00</span></a></li>
-                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English
-                                                    Phrasal Verbs <span>3:17</span></a></li>
-                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to
-                                                    start?</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Course Accordion End -->
+<!--                                <div class="accordion-item">-->
+<!--                                    <button class="collapsed" data-bs-target="#collapseThree" data-bs-toggle="collapse">-->
+<!--                                        Practical-->
+<!--                                    </button>-->
+<!--                                    <div class="accordion-collapse collapse" data-bs-parent="#accordionCourse"-->
+<!--                                         id="collapseThree">-->
+<!--                                        <div class="accordion-body">-->
+<!--                                            <ul class="lessons-list">-->
+<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
+<!--                                                    Introductions <span>5:00</span></a></li>-->
+<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
+<!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
+<!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
+<!--                                                    start?</a></li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Course Accordion End &ndash;&gt;-->
 
-                        </div>
+<!--                        </div>-->
                         <!-- Course Lessons End -->
 
                         <!-- Course Instructor Start -->
-                        <div class="course-instructor">
-                            <h3 class="title">Course Instructor</h3>
+<!--                        <div class="course-instructor">-->
+<!--                            <h3 class="title">Course Instructor</h3>-->
 
-                            <div class="instructor-profile">
-                                <div class="profile-images">
-                                    <img alt="author" th:src="@{/images/author-7.jpg}">
-                                </div>
-                                <div class="profile-content">
-                                    <h5 class="name">Alena Hedge</h5>
+<!--                            <div class="instructor-profile">-->
+<!--                                <div class="profile-images">-->
+<!--                                    <img alt="author" th:src="@{/images/author-7.jpg}">-->
+<!--                                </div>-->
+<!--                                <div class="profile-content">-->
+<!--                                    <h5 class="name">Alena Hedge</h5>-->
 
-                                    <div class="profile-meta">
-                                        <div class="rating">
-                                            <div class="rating-star">
-                                                <div class="rating-active" style="width: 60%;"></div>
-                                            </div>
-                                            <span>(4.5)</span>
-                                        </div>
-                                        <span class="meta-action"><i class="fa fa-play-circle"></i> 10 Tutorials</span>
-                                        <span class="meta-action"><i class="fa fa-user-o"></i> 134 Students</span>
-                                    </div>
+<!--                                    <div class="profile-meta">-->
+<!--                                        <div class="rating">-->
+<!--                                            <div class="rating-star">-->
+<!--                                                <div class="rating-active" style="width: 60%;"></div>-->
+<!--                                            </div>-->
+<!--                                            <span>(4.5)</span>-->
+<!--                                        </div>-->
+<!--                                        <span class="meta-action"><i class="fa fa-play-circle"></i> 10 Tutorials</span>-->
+<!--                                        <span class="meta-action"><i class="fa fa-user-o"></i> 134 Students</span>-->
+<!--                                    </div>-->
 
-                                    <p>World-class training and development programs developed by top teachers. Build
-                                        skills with courses, certificates, and degrees online from world-class
-                                        universities </p>
+<!--                                    <p>World-class training and development programs developed by top teachers. Build-->
+<!--                                        skills with courses, certificates, and degrees online from world-class-->
+<!--                                        universities </p>-->
 
-                                </div>
-                            </div>
-                        </div>
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <!-- Course Instructor End -->
 
                         <!-- Course Review Start -->
@@ -411,11 +411,6 @@
                     <div class="sidebar-details-wrap">
                         <!-- Sidebar Details Video Description Start -->
                         <div class="sidebar-details-video-description" sec:authorize="hasAuthority('TEACHER')">
-                            <div class="sidebar-video">
-                                <img alt="video" th:src="@{/images/sidebar-video.jpg}">
-                                <a class="play videoLightbox" href="https://youtu.be/cdZHQFCqK3g"><i
-                                        class="fa fa-play"></i></a>
-                            </div>
                             <div class="sidebar-description">
                                 <div class="price">
                                     <span class="sale-price">New assignment</span>
