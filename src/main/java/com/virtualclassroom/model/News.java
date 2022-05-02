@@ -15,7 +15,6 @@ public class News {
     private String title;
     private String content;
     private Date timestamp;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false)
     private Classroom classroom;
