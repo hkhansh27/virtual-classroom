@@ -1,11 +1,13 @@
 package com.virtualclassroom.controller;
 
 import com.virtualclassroom.dto.NewsDto;
+import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.News;
 import com.virtualclassroom.service.classroom.ClassroomService;
 import com.virtualclassroom.service.news.NewsService;
 import com.virtualclassroom.service.user.UserService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +33,12 @@ public class NewsController {
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping()
-    public String getNewsPage(@RequestParam Long classroomId,Model model, @NotNull News newss) {
+    public String getNewsPage(@RequestParam (value = "pageId") int pageId,@RequestParam Long classroomId,Model model) {
+        int pageSize = 4;
         List<NewsDto> newsDtoList = new ArrayList<>();
-        var newsList = newsService.getByClassId(classroomId);
-        newsList.forEach(news -> {
+        Page<News> page = newsService.findPaginated(classroomService.getClassroomById(classroomId).getId(), pageId, pageSize);
+        List<News> newsListView = page.getContent();
+        newsListView.forEach(news -> {
             var teacherList = userService.findByRoleAndNews("TEACHER", news.getId());
             var studentList = userService.findByRoleAndNews("STUDENT", news.getId());
         newsDtoList.add(new NewsDto(
@@ -47,6 +51,9 @@ public class NewsController {
         });
         model.addAttribute("classroomId", classroomId);
         model.addAttribute("newsDtoList", newsDtoList);
+        model.addAttribute("currentPage", pageId);
+        model.addAttribute("totalsPage", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         return "news";
     }
 

@@ -3,6 +3,9 @@ package com.virtualclassroom.service.classroom;
 import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.repository.ClassroomRepository;
 import com.virtualclassroom.utils.Helper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,5 +44,11 @@ public class ClassroomServiceImpl implements ClassroomService {
             return classroomRepository.findbyKey(keyword);
         }
         return null;
+    }
+
+    @Override
+    public Page<Classroom> findPaginated(String userName, int pageId, int pageSize) {
+        Pageable pageable = PageRequest.of(pageId - 1, pageSize);
+        return this.classroomRepository.findByUserNamePagination(userName, pageable);
     }
 }

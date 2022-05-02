@@ -8,6 +8,7 @@ import com.virtualclassroom.service.classroom.ClassroomService;
 import com.virtualclassroom.service.homework.HomeworkService;
 import com.virtualclassroom.service.user.UserService;
 import com.virtualclassroom.utils.Helper;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,13 +61,16 @@ public class ClassroomController {
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping("/list")
-    public String listClassroom(Model model) {
-        List<ClassrooomDto> classrooomDtoList = new ArrayList<>();
-        List<Classroom> classroomList = classroomService.getClassesByUsername(userService.getCurrentUser().getUserName());
-        classroomList.forEach(classroom -> {
+    public String listClassroom(@RequestParam (value = "pageId") int pageId, Model model) {
+        int pageSize = 4;
+        List<ClassrooomDto> classroomDtoList = new ArrayList<>();
+        //List<Classroom> classroomList = classroomService.getClassesByUsername(userService.getCurrentUser().getUserName());
+        Page<Classroom> page = classroomService.findPaginated(userService.getCurrentUser().getUserName(), pageId, pageSize);
+        List<Classroom> classroomListView = page.getContent();
+        classroomListView.forEach(classroom -> {
             var teacherList = userService.findByRoleAndClassroom("TEACHER", classroom.getId());
             var studentList = userService.findByRoleAndClassroom("STUDENT", classroom.getId());
-            classrooomDtoList.add(new ClassrooomDto(
+            classroomDtoList.add(new ClassrooomDto(
                     classroom.getId(),
                     classroom.getNameClass(),
                     classroom.getDescriptionClass(),
@@ -75,8 +79,16 @@ public class ClassroomController {
                     studentList,
                     studentList.size()));
         });
-        model.addAttribute("classroomDtoList", classrooomDtoList);
+        model.addAttribute("classroomDtoList", classroomDtoList);
+        model.addAttribute("currentPage", pageId);
+        model.addAttribute("totalsPage", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         return "course-list";
+    }
+
+    @GetMapping("/")
+    public String viewClassListPage(Model model) {
+        return listClassroom(1, model);
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
@@ -110,4 +122,6 @@ public class ClassroomController {
         redirAttrs.addFlashAttribute("success", "File uploaded successfully");
         return "redirect:/classroom/" + classroomId;
     }
+
+
 }

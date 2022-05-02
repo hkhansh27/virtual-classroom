@@ -46,7 +46,7 @@
                         <!-- Course Top Bar Start -->
                         <div class="course-top-bar">
                             <div class="course-top-text">
-                                <p>We found <span>78</span> Courses For You</p>
+                                <p>We found <span>[[${totalItems}]]</span> Courses For You</p>
                             </div>
                             <div class="course-top-inner">
                                 <ul class="course-top-menu">
@@ -356,15 +356,15 @@
                         </div>
 
                         <!-- Page Pagination Start -->
-                        <div class="page-pagination">
-                            <ul class="pagination justify-content-center">
-                                <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a class="active" href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><span>...</span></li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                            </ul>
+                        <div th:if="${totalsPage > 0}" >
+                            <div class="row col-sm-10 page-pagination">
+                                <div class="pagination justify-content-center">
+                                    <span th:each="i: ${#numbers.sequence(1, totalsPage)}">
+                                        <a class="active" th:if="${currentPage != i}"  th:href="@{'/classroom/list?pageId=' + ${i}}" >[[${i}]]</a>
+                                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <!-- Page Pagination End -->
 
