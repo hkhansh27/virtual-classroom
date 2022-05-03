@@ -27,7 +27,6 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getByNewsId(Long id) {
         return commentRepository.findByNewsId(id);
     }
-
     @Override
     public Page<Comment> findPaginated(Long newsId, int pageId, int pageSize) {
         Pageable pageable = PageRequest.of(pageId - 1, pageSize);

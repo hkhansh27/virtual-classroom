@@ -2,6 +2,9 @@ package com.virtualclassroom.service.news;
 
 import com.virtualclassroom.model.News;
 import com.virtualclassroom.repository.NewsRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,4 +42,9 @@ public class NewsServiceImpl implements NewsService {
         return newsRepository.findByClassId(id);
     }
 
+    @Override
+    public Page<News> findPaginated(Long classroomId, int pageId, int pageSize) {
+        Pageable pageable = PageRequest.of(pageId - 1, pageSize);
+        return this.newsRepository.findByClassroomIdPagination(classroomId, pageable);
+    }
 }

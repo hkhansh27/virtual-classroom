@@ -60,7 +60,6 @@
                 <h3 class="title" th:text="${news.getTitle()}" ><a href="blog-details.html">LIVE SHOW: Business memes, dad lessons, selling to CROs</a></h3>
                 <p th:text="${news.getContent()}">World-class training and development programs developed by top teachers. Build skills with courses, certificates, and degrees online from world-class universities and companies.</p>
                     <a th:each="i: ${#numbers.sequence(1, totalsPage)}" th:href="@{'/news-details?newsId=' + ${news.getId()} + '&pageId=' + ${i}}" class="btn btn-primary btn-hover-heading-color">Read More</a>
-
               </div>
             </div>
             <!-- Single Blog List End -->
