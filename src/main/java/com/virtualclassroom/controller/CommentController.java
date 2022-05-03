@@ -2,11 +2,14 @@ package com.virtualclassroom.controller;
 
 import com.virtualclassroom.dto.CommentDto;
 import com.virtualclassroom.dto.NewsDto;
+import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.Comment;
+import com.virtualclassroom.model.News;
 import com.virtualclassroom.service.comment.CommentService;
 import com.virtualclassroom.service.news.NewsService;
 import com.virtualclassroom.service.user.UserService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +34,14 @@ public class CommentController {
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping()
-    public String getNewsDetailsPage(@RequestParam Long newsId,Model model) {
+    public String getNewsDetailsPage(@RequestParam (value = "pageId") int pageId,@RequestParam Long newsId,Model model) {
+        int pageSize = 2;
         List<NewsDto> newsDetailsDtoList = new ArrayList<>();
         List<CommentDto> commentDtoList = new ArrayList<>();
         var newsDetailsList = newsService.getNewsById(newsId);
-        var commentList = commentService.getByNewsId(newsId);
+        //var commentList = commentService.getByNewsId(newsId);
+        Page<Comment> page = commentService.findPaginated(newsService.getNewsByNewsId(newsId).getId(), pageId, pageSize);
+        List<Comment> commentListView = page.getContent();
         newsDetailsList.forEach(news -> {
             var teacherList = userService.findByRoleAndNews("TEACHER", news.getId());
             var studentList = userService.findByRoleAndNews("STUDENT", news.getId());
@@ -47,7 +53,7 @@ public class CommentController {
                     teacherList,
                     studentList));
         });
-        commentList.forEach(comment -> {
+        commentListView.forEach(comment -> {
             var teacherList = userService.findByRoleAndComment("TEACHER", comment.getId());
             var studentList = userService.findByRoleAndComment("STUDENT", comment.getId());
             commentDtoList.add(new CommentDto(
@@ -62,30 +68,11 @@ public class CommentController {
         model.addAttribute("newsDetailsDtoList", newsDetailsDtoList);
         model.addAttribute("commentDtoList", commentDtoList);
         model.addAttribute("comment", new Comment());
+        model.addAttribute("currentPage", pageId);
+        model.addAttribute("totalsPage", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         return "news-details";
     }
-
-//    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-//    @GetMapping()
-//    public String getComment(@RequestParam Long newsId,Model model) {
-//        List<CommentDto> commentDtoList = new ArrayList<>();
-//        var commentList = commentService.getByNewsId(newsId);
-//        commentList.forEach(comment -> {
-//            var teacherList = userService.findByRoleAndComment("TEACHER", comment.getId());
-//            var studentList = userService.findByRoleAndComment("STUDENT", comment.getId());
-//            commentDtoList.add(new CommentDto(
-//                    comment.getId(),
-//                    comment.getContent(),
-//                    comment.getTimestamp(),
-//                    teacherList,
-//                    studentList,
-//                    studentList.size()));
-//        });
-//        model.addAttribute("newsId", newsId);
-//        model.addAttribute("commentDtoList", commentDtoList);
-//        model.addAttribute("comment", new Comment());
-//        return "news-details";
-//    }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping("/{newsId}")

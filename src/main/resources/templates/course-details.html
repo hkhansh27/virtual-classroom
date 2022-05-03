@@ -2,10 +2,10 @@
 <html lang="vi"
       layout:decorate="_layout"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org">
 >
-<head>
-
+<head th:replace="_layout :: head(type='tag')">
+    <title></title>
 </head>
 
 <body>
@@ -13,8 +13,8 @@
 <div class="main-wrapper" layout:fragment="main_body">
     <!-- Page Banner Start -->
     <div class="section page-banner-section bg-color-1">
-        <img alt="shape" class="shape-4" th:src="@{/images/shape/shape-21.png}">
-        <img alt="shape" class="shape-5" th:src="@{/images/shape/shape-21.png}">
+        <img class="shape-4" th:src="@{/images/shape/shape-21.png}" alt="shape">
+        <img class="shape-5" th:src="@{/images/shape/shape-21.png}" alt="shape">
         <div class="container">
             <!-- Course Details Banner Content Start -->
             <div class="course-details-banner-content">
@@ -25,23 +25,22 @@
                     <span>(4.5)</span>
                 </div>
 
-                <h2 class="title" th:text="${classroomDetails.getNameClass()}">2021 Complete Python Bootcamp From Zero to Hero in Python </h2>
+                <h2 class="title">2021 Complete Python Bootcamp From Zero to Hero in Python </h2>
 
-                <p th:text="${classroomDetails.getDescriptionClass()}">Learn Python like a Professional Start from the basics and go all the way to creating your own
-                    applications and games </p>
+                <p>Learn Python like a Professional Start from the basics and go all the way to creating your own applications and games </p>
 
                 <div class="course-details-meta">
-<!--                    <div class="meta-action">-->
-<!--                        <div class="meta-author">-->
-<!--                            <img alt="Author" th:src="@{/images/author-1.jpg}">-->
-<!--                        </div>-->
-<!--                        <div class="meta-name">-->
-<!--                            <h5 class="name">Adam Helen</h5>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="meta-action">
+                        <div class="meta-author">
+                            <img th:src="@{/images/author-1.jpg}" alt="Author">
+                        </div>
+                        <div class="meta-name">
+                            <h5 class="name">Adam Helen</h5>
+                        </div>
+                    </div>
 
                     <div class="meta-action">
-                        <p class="label">Code : <span th:text="${classroomDetails.getCodeClass()}">2/12/2021</span></p>
+                        <p class="label">Last Update : <span>2/12/2021</span></p>
                     </div>
                 </div>
             </div>
@@ -63,219 +62,108 @@
                         <!-- Course Overview Start -->
                         <div class="course-overview">
                             <h3 class="title">Course Overview</h3>
-                            <p>World-class training and development programs developed by top teachers. Build skills
-                                with courses, certificates, and degrees online from world-class universities and
-                                companies. from the National Research University Higher School of Economics (HSE
-                                University) is the first fully online.</p>
+                            <p>World-class training and development programs developed by top teachers. Build skills with courses, certificates, and degrees online from world-class universities and companies. from the National Research University Higher School of Economics (HSE University) is the first fully online.</p>
                         </div>
                         <!-- Course Overview End -->
-
-                        <!-- Course Overview Start -->
-                        <!--                        <div class="course-learn-list" th:each="news: ${newsDtoList}">-->
-                        <!--                            <h3 class="title" th:text="${news.getTitle()}">Course Overview</h3>-->
-                        <!--                            <p th:text="${news.getContent()}">World-class training and development programs developed by top teachers. Build skills-->
-                        <!--                                with courses, certificates, and degrees online from world-class universities and-->
-                        <!--                                companies. from the National Research University Higher School of Economics (HSE-->
-                        <!--                                University) is the first fully online.</p>-->
-                        <!--                        </div>-->
-                        <!-- Course Overview End -->
-
-                        <div class="course-learn-list" th:each="homework: ${homeworkTeacherList}">
-                            <div class="sidebar-course-item">
-                                <div class="item-image">
-                                    <a th:href="@{'/homework_list/download?id=' + ${homework.id}}"><img alt="Courses"
-                                                                                                        th:src="@{/images/homework.png}"></a>
-                                </div>
-                            </div>
-
-                            <div class="item-content">
-                                <h3 class="title"><a th:href="@{'/homework_list/download?id=' + ${homework.id}}"
-                                                     th:text="${homework.getName() == null ? 'Untitled homework' : homework.getName()}">Cupidatat
-                                    non proident sunt
-                                    culpa officia deserunt</a> <i class="fa fa-download"></i></h3>
-                                <span th:text="${homework.getDescription()}">World-class training and development programs
-                                    developed by top teachers. Build skills
-                                    with courses, certificates, and degrees online from world-class universities and
-                                    companies. from the National Research University Higher School of Economics (HSE
-                                    University) is the first fully online.</span>
-                            </div>
-
-
-                            <div class="course-collapse-btn">
-                                <button class="btn collapsed" data-bs-target="#upload-homework"
-                                        data-bs-toggle="modal"
-                                        data-bs-whatever="create-classroom" type="button">
-                                    <i class="fa fa-pencil-square-o"></i>
-                                    Your submission
-                                </button>
-                            </div>
-
-<!--                            Start modal form-->
-                            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
-                                 id="upload-homework"
-                                 tabindex="-1">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
-                                                    type="button"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form enctype="multipart/form-data" method="post"
-                                                  th:action="@{/classroom/upload}"
-                                                  th:object="${homeworkObj}">
-                                                <input name="classroomId" th:value="${classroomId}" type="hidden">
-                                                <div class="mb-3">
-                                                    <input class="form-control" id="homeworkCode"
-                                                           name="parentHomework" th:value="${homework.getId()}" type="hidden">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="col-form-label" for="homeworkName">Name</label>
-                                                    <input class="form-control" id="homeworkName" required
-                                                           th:field="*{name}" type="text">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="col-form-label" for="homeworkDescription">Description</label>
-                                                    <input class="form-control" id="homeworkDescription" required
-                                                           th:field="*{description}" type="text">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="col-form-label" for="homeworkDescription">File</label>
-                                                    <input class="form-control" id="formFile" name="file" type="file">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
-                                                        Close
-                                                    </button>
-                                                    <button class="btn btn-primary" type="submit">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-<!--                            End modal form-->
-                        </div>
 
                         <!-- Course Learn List Start -->
-<!--                        <div class="course-learn-list">-->
-<!--                            <h3 class="title">What you will learn</h3>-->
-<!--                            <ul>-->
-<!--                                <li>Become a UX designer.</li>-->
-<!--                                <li>Become a UX designer.</li>-->
-<!--                                <li>You will be able to add UX designer to your CV</li>-->
-<!--                                <li>You will be able to add UX designer to your CV</li>-->
-<!--                                <li>Build & test a full website design.</li>-->
-<!--                                <li>Build & test a full website design.</li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
+                        <div class="course-learn-list">
+                            <h3 class="title">What you will learn</h3>
+                            <ul>
+                                <li>Become a UX designer.</li>
+                                <li>Become a UX designer.</li>
+                                <li>You will be able to add UX designer to your CV</li>
+                                <li>You will be able to add UX designer to your CV</li>
+                                <li>Build & test a full website design.</li>
+                                <li>Build & test a full website design.</li>
+                            </ul>
+                        </div>
                         <!-- Course Learn List End -->
 
                         <!-- Course Lessons Start -->
-<!--                        <div class="course-lessons">-->
+                        <div class="course-lessons">
 
-<!--                            <div class="lessons-top">-->
-<!--                                <h3 class="title">Course Content</h3>-->
-<!--                                <div class="lessons-time">-->
-<!--                                    <span>10 Lessons</span>-->
-<!--                                    <span>6h 40m</span>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <div class="lessons-top">
+                                <h3 class="title">Course Content</h3>
+                                <div class="lessons-time">
+                                    <span>10 Lessons</span>
+                                    <span>6h 40m</span>
+                                </div>
+                            </div>
 
-<!--                            &lt;!&ndash; Course Accordion Start &ndash;&gt;-->
-<!--                            <div class="course-accordion accordion" id="accordionCourse">-->
-<!--                                <div class="accordion-item">-->
-<!--                                    <button data-bs-target="#collapseOne" data-bs-toggle="collapse">Introduction-->
-<!--                                    </button>-->
-<!--                                    <div class="accordion-collapse collapse show" data-bs-parent="#accordionCourse"-->
-<!--                                         id="collapseOne">-->
-<!--                                        <div class="accordion-body">-->
-<!--                                            <ul class="lessons-list">-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
-<!--                                                    Introductions <span>5:00</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
-<!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
-<!--                                                    start?</a></li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                            <!-- Course Accordion Start -->
+                            <div class="course-accordion accordion" id="accordionCourse">
+                                <div class="accordion-item">
+                                    <button data-bs-toggle="collapse" data-bs-target="#collapseOne">Introduction </button>
+                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionCourse">
+                                        <div class="accordion-body">
+                                            <ul class="lessons-list">
+                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and Introductions <span>5:00</span></a></li>
+                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English Phrasal Verbs <span>3:17</span></a></li>
+                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to start?</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
 
-<!--                                <div class="accordion-item">-->
-<!--                                    <button class="collapsed" data-bs-target="#collapseTwo" data-bs-toggle="collapse">-->
-<!--                                        Analysis-->
-<!--                                    </button>-->
-<!--                                    <div class="accordion-collapse collapse" data-bs-parent="#accordionCourse"-->
-<!--                                         id="collapseTwo">-->
-<!--                                        <div class="accordion-body">-->
-<!--                                            <ul class="lessons-list">-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
-<!--                                                    Introductions <span>5:00</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
-<!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
-<!--                                                    start?</a></li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <div class="accordion-item">
+                                    <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo">Analysis</button>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionCourse">
+                                        <div class="accordion-body">
+                                            <ul class="lessons-list">
+                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and Introductions <span>5:00</span></a></li>
+                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English Phrasal Verbs <span>3:17</span></a></li>
+                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to start?</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
 
-<!--                                <div class="accordion-item">-->
-<!--                                    <button class="collapsed" data-bs-target="#collapseThree" data-bs-toggle="collapse">-->
-<!--                                        Practical-->
-<!--                                    </button>-->
-<!--                                    <div class="accordion-collapse collapse" data-bs-parent="#accordionCourse"-->
-<!--                                         id="collapseThree">-->
-<!--                                        <div class="accordion-body">-->
-<!--                                            <ul class="lessons-list">-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
-<!--                                                    Introductions <span>5:00</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
-<!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
-<!--                                                    start?</a></li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Course Accordion End &ndash;&gt;-->
+                                <div class="accordion-item">
+                                    <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree">Practical</button>
+                                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionCourse">
+                                        <div class="accordion-body">
+                                            <ul class="lessons-list">
+                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and Introductions <span>5:00</span></a></li>
+                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English Phrasal Verbs <span>3:17</span></a></li>
+                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to start?</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Course Accordion End -->
 
-<!--                        </div>-->
+                        </div>
                         <!-- Course Lessons End -->
 
                         <!-- Course Instructor Start -->
-<!--                        <div class="course-instructor">-->
-<!--                            <h3 class="title">Course Instructor</h3>-->
+                        <div class="course-instructor">
+                            <h3 class="title">Course Instructor</h3>
 
-<!--                            <div class="instructor-profile">-->
-<!--                                <div class="profile-images">-->
-<!--                                    <img alt="author" th:src="@{/images/author-7.jpg}">-->
-<!--                                </div>-->
-<!--                                <div class="profile-content">-->
-<!--                                    <h5 class="name">Alena Hedge</h5>-->
+                            <div class="instructor-profile">
+                                <div class="profile-images">
+                                    <img th:src="@{/images/author-7.jpg}" alt="author">
+                                </div>
+                                <div class="profile-content">
+                                    <h5 class="name">Alena Hedge</h5>
 
-<!--                                    <div class="profile-meta">-->
-<!--                                        <div class="rating">-->
-<!--                                            <div class="rating-star">-->
-<!--                                                <div class="rating-active" style="width: 60%;"></div>-->
-<!--                                            </div>-->
-<!--                                            <span>(4.5)</span>-->
-<!--                                        </div>-->
-<!--                                        <span class="meta-action"><i class="fa fa-play-circle"></i> 10 Tutorials</span>-->
-<!--                                        <span class="meta-action"><i class="fa fa-user-o"></i> 134 Students</span>-->
-<!--                                    </div>-->
+                                    <div class="profile-meta">
+                                        <div class="rating">
+                                            <div class="rating-star">
+                                                <div class="rating-active" style="width: 60%;"></div>
+                                            </div>
+                                            <span>(4.5)</span>
+                                        </div>
+                                        <span class="meta-action"><i class="fa fa-play-circle"></i> 10 Tutorials</span>
+                                        <span class="meta-action"><i class="fa fa-user-o"></i> 134 Students</span>
+                                    </div>
 
-<!--                                    <p>World-class training and development programs developed by top teachers. Build-->
-<!--                                        skills with courses, certificates, and degrees online from world-class-->
-<!--                                        universities </p>-->
+                                    <p>World-class training and development programs developed by top teachers. Build skills with courses, certificates, and degrees online from world-class universities </p>
 
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                                </div>
+                            </div>
+                        </div>
                         <!-- Course Instructor End -->
 
                         <!-- Course Review Start -->
@@ -356,7 +244,7 @@
                                         <!-- Single Review Start -->
                                         <div class="single-review">
                                             <div class="review-author">
-                                                <img alt="Author" th:src="@{/images/author-1.jpg}">
+                                                <img th:src="@{/images/author-1.jpg}" alt="Author">
                                             </div>
                                             <div class="review-content">
                                                 <div class="review-top">
@@ -366,9 +254,7 @@
                                                     </div>
                                                     <span class="date">4 Months Ago</span>
                                                 </div>
-                                                <p>World-class training and development programs developed by top
-                                                    teachers. Build skills with courses, certificates, and degrees
-                                                    online from world-class.</p>
+                                                <p>World-class training and development programs developed by top teachers. Build skills with courses, certificates, and degrees online from world-class.</p>
                                             </div>
                                         </div>
                                         <!-- Single Review End -->
@@ -377,7 +263,7 @@
                                         <!-- Single Review Start -->
                                         <div class="single-review">
                                             <div class="review-author">
-                                                <img alt="Author" th:src="@{/images/author-3.jpg}">
+                                                <img th:src="@{/images/author-3.jpg}" alt="Author">
                                             </div>
                                             <div class="review-content">
                                                 <div class="review-top">
@@ -387,9 +273,7 @@
                                                     </div>
                                                     <span class="date">4 Months Ago</span>
                                                 </div>
-                                                <p>World-class training and development programs developed by top
-                                                    teachers. Build skills with courses, certificates, and degrees
-                                                    online from world-class.</p>
+                                                <p>World-class training and development programs developed by top teachers. Build skills with courses, certificates, and degrees online from world-class.</p>
                                             </div>
                                         </div>
                                         <!-- Single Review End -->
@@ -409,74 +293,83 @@
                 <div class="col-lg-4">
                     <!-- Sidebar Wrapper Start -->
                     <div class="sidebar-details-wrap">
+
                         <!-- Sidebar Details Video Description Start -->
-                        <div class="sidebar-details-video-description" sec:authorize="hasAuthority('TEACHER')">
+                        <div class="sidebar-details-video-description">
+                            <div class="sidebar-video">
+                                <img th:src="@{/images/sidebar-video.jpg}" alt="video">
+                                <a href="https://youtu.be/cdZHQFCqK3g" class="play videoLightbox"><i class="fa fa-play"></i></a>
+                            </div>
                             <div class="sidebar-description">
                                 <div class="price">
-                                    <span class="sale-price">New assignment</span>
+                                    <span class="sale-price">$49.99</span>
+                                    <span class="regular-price">$102</span>
                                 </div>
-                                <p class="alert alert-success" role="alert" th:if="${success}" th:text="${success}"></p>
-                                <p class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></p>
+                                <p th:if="${success}" class="alert alert-success" role="alert" th:text="${success}"></p>
+                                <p th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></p>
                                 <div>
-                                    <form enctype="multipart/form-data" method="post"
-                                          th:action="@{/classroom/upload}"
-                                          th:object="${homeworkObj}">
-                                        <input name="classroomId" th:value="${classroomId}" type="hidden">
-                                        <div class="mb-3">
-                                            <label class="col-form-label" for="homeworkName2">Name</label>
-                                            <input class="form-control" id="homeworkName2" required
-                                                   th:field="*{name}" type="text">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="col-form-label" for="homeworkDescription2">Description</label>
-                                            <input class="form-control" id="homeworkDescription2" required
-                                                   th:field="*{description}" type="text">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="col-form-label" for="formFile2">File</label>
-                                            <input class="form-control" id="formFile2" name="file" type="file">
-                                        </div>
+                                    <form enctype="multipart/form-data" method="post" th:action="@{/classroom/course_details}"
+                                          th:object="${homework}">
+                                        <input type="hidden" name="classroomId" th:value="${classroomId}">
+                                        <input id="formFile" name="file" type="file">
+
                                         <button class="btn btn-warning btn-hover-heading-color w-100" type="submit">
                                             Upload
                                         </button>
                                     </form>
                                 </div>
-                                <!--                                <ul class="description-list">-->
-                                <!--                                    <li><i class="fa fa-clock-o"></i> Duration <span>52 mins</span></li>-->
-                                <!--                                    <li><i class="fa fa-sliders"></i> Level <span>Expert</span></li>-->
-                                <!--                                    <li><i class="fa fa-file-o"></i> Lectures <span>4 Lectures</span></li>-->
-                                <!--                                    <li><i class="fa fa-language"></i> Language <span>English</span></li>-->
-                                <!--                                    <li><i class="fa fa-user-o"></i> Enrolled <span>4 Enrolled</span></li>-->
-                                <!--                                </ul>-->
-                                <a class="btn btn-outline-primary w-100"
-                                   th:href="@{'/news?classroomId=' + ${classroomId}}">Add news</a>
-                                <a class="btn btn-outline-primary w-100"
-                                   th:href="@{'/homework?classroomId=' + ${classroomId}}" sec:authorize="hasAuthority('TEACHER')">View homeworks</a>
+<!--                                <ul class="description-list">-->
+<!--                                    <li><i class="fa fa-clock-o"></i> Duration <span>52 mins</span></li>-->
+<!--                                    <li><i class="fa fa-sliders"></i> Level <span>Expert</span></li>-->
+<!--                                    <li><i class="fa fa-file-o"></i> Lectures <span>4 Lectures</span></li>-->
+<!--                                    <li><i class="fa fa-language"></i> Language <span>English</span></li>-->
+<!--                                    <li><i class="fa fa-user-o"></i> Enrolled <span>4 Enrolled</span></li>-->
+<!--                                </ul>-->
+                                <a class="btn btn-outline-primary w-100" th:href="@{'/news?classroomId=' + ${classroomId}}">Add news</a>
                             </div>
                         </div>
                         <!-- Sidebar Details Video Description End -->
 
                         <!-- Sidebar Course Start -->
                         <div class="sidebar-details-course">
-                            <h4 class="sidebar-details-title">Your homeworks</h4>
+                            <h4 class="sidebar-details-title">Releted Courses</h4>
 
                             <ul class="sidebar-details-courses">
-                                <li th:each="homework: ${homeworkList}">
+                                <li>
                                     <!-- Single Course Start -->
                                     <div class="sidebar-course-item">
                                         <div class="item-image">
-                                            <a th:href="@{'/homework_list/download?id=' + ${homework.id}}"><img
-                                                    alt="Courses"
-                                                    th:src="@{/images/homework.png}"></a>
+                                            <a href="course-details.html"><img th:src="@{/images/courses/courses-1.jpg}" alt="Courses"></a>
                                         </div>
                                         <div class="item-content">
-                                            <h4><a
-                                                    th:href="@{'/homework_list/download?id=' + ${homework.id}}"
-                                                    th:text="${homework.getName() == null ? 'Untitled homework' : homework.getName()}">Cupidatat
-                                                non proident sunt
-                                                culpa officia deserunt</a> <i class="fa fa-download"></i></h4>
-                                            <h5 th:text="|Point: ${homework.getScore() == null ? 'Not graded yet' : homework.getScore() }|" style="color: green"></h5>
-                                            <span class="price" th:text="${homework.getDescription()}">Price  <strong>$45</strong></span>
+                                            <h3 class="title"><a href="course-details.html">Cupidatat non proident sunt culpa officia deserunt</a></h3>
+                                            <span class="price">Price  <strong>$45</strong></span>
+                                        </div>
+                                    </div>
+                                    <!-- Single Course End -->
+                                </li>
+                                <li>
+                                    <!-- Single Course Start -->
+                                    <div class="sidebar-course-item">
+                                        <div class="item-image">
+                                            <a href="course-details.html"><img th:src="@{/images/courses/courses-2.jpg}" alt="Courses"></a>
+                                        </div>
+                                        <div class="item-content">
+                                            <h3 class="title"><a href="course-details.html">Cupidatat non proident sunt culpa officia deserunt</a></h3>
+                                            <span class="price">Price  <strong>$45</strong></span>
+                                        </div>
+                                    </div>
+                                    <!-- Single Course End -->
+                                </li>
+                                <li>
+                                    <!-- Single Course Start -->
+                                    <div class="sidebar-course-item">
+                                        <div class="item-image">
+                                            <a href="course-details.html"><img th:src="@{/images/courses/courses-3.jpg}" alt="Courses"></a>
+                                        </div>
+                                        <div class="item-content">
+                                            <h3 class="title"><a href="course-details.html">Cupidatat non proident sunt culpa officia deserunt</a></h3>
+                                            <span class="price">Price  <strong>$45</strong></span>
                                         </div>
                                     </div>
                                     <!-- Single Course End -->
