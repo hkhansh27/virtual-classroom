@@ -35,7 +35,7 @@ public class UserController {
     @PostMapping("/save")
     public String saveUser(User user){
         userService.save(user);
-        return "redirect:/user/index";
+        return "redirect:/user";
     }
 
     @GetMapping("/edit/{id}")
