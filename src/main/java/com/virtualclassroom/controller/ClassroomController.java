@@ -59,7 +59,7 @@ public class ClassroomController {
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @GetMapping("/list")
+    @GetMapping("")
     public String listClassroom(Model model) {
         List<ClassrooomDto> classrooomDtoList = new ArrayList<>();
         List<Classroom> classroomList = classroomService.getClassesByUsername(userService.getCurrentUser().getUserName());

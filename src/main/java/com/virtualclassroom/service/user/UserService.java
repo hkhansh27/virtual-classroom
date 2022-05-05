@@ -20,5 +20,9 @@ public interface UserService {
     User get(Long id);
     List<Role> getRoles();
     void save(User user);
+    void updateResetPasswordToken(String token, String email) throws UserNotFoundException;
+    User get(String resetPassToken);
+    void updatePassword(User user, String newPassword);
+
 }
 
