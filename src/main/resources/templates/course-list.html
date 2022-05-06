@@ -140,7 +140,7 @@
                                                 type="button"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="post" th:action="@{/classroom/save}" th:object="${newClassroom}">
+                                        <form method="post" th:action="@{/classroom/save}" th:object="${classroom}">
                                             <div class="mb-3">
                                                 <label class="col-form-label" for="class-name">Class name</label>
                                                 <input class="form-control" id="class-name" required

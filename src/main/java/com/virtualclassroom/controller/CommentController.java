@@ -35,7 +35,7 @@ public class CommentController {
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping()
     public String getNewsDetailsPage(@RequestParam (value = "pageId") int pageId,@RequestParam Long newsId,Model model) {
-        int pageSize = 2;
+        int pageSize = 4;
         List<NewsDto> newsDetailsDtoList = new ArrayList<>();
         List<CommentDto> commentDtoList = new ArrayList<>();
         var newsDetailsList = newsService.getNewsById(newsId);

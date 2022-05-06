@@ -90,7 +90,8 @@
 
                                 <!-- Commtent Box Start -->
                                 <div class="comment-box" >
-<!--                                    <h3 class="comment-title" th:text="|${comment.getQualityComment()} people commented|">Comment (03)</h3>-->
+                                    <h3 class="comment-title"><p>We found <span>[[${totalItems}]]</span> Commented</p></h3>
+
                                     <ul class="commtent-items" th:each="comment: ${commentDtoList}">
                                         <li>
                                             <!-- Single Commtent Start -->
@@ -106,7 +107,6 @@
 
                                                     <div class="meta">
                                                         <span class="date" th:text="${comment.getTimestamp()}">Dec 28, 2020 at 1:47 am</span>
-                                                        <a class="reply" href="#"><i class="fa fa-reply-all"></i> Reply</a>
                                                     </div>
                                                 </div>
                                             </div>
