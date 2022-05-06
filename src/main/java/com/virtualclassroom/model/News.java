@@ -23,7 +23,7 @@ public class News {
     @JoinTable(name = "news_user",
             joinColumns = @JoinColumn(name = "news_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private Set<User> user = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "news")
     private Set<Comment> comments = new HashSet<>();
@@ -68,12 +68,12 @@ public class News {
         this.timestamp = timestamp;
     }
 
-    public Set<User> getUser() {
-        return user;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setUser(Set<User> user) {
-        this.user = user;
+    public void setUsers(Set<User> user) {
+        this.users = user;
     }
 
 

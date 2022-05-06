@@ -32,13 +32,6 @@ public class ClassroomController {
         this.homeworkService = homeworkService;
     }
 
-    @PreAuthorize("hasAuthority('TEACHER')")
-    @GetMapping("/create")
-    public String classroom(Model model) {
-        model.addAttribute("classroom", new Classroom());
-        return "classroom";
-    }
-
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @PostMapping("/save")
     public String saveClassroom(Classroom classroom) {
@@ -46,7 +39,7 @@ public class ClassroomController {
         classroom.setCodeClass(Helper.getRandomNumberString());
         user.getClassrooms().add(classroom);
         userService.addUser(user);
-        return "classroom";
+        return "redirect:/classroom";
     }
 
     @PostMapping("/join")
@@ -55,11 +48,11 @@ public class ClassroomController {
         classroom = classroomService.findClassByCodeID(keyword);
         user.getClassrooms().add(classroom);
         userService.addUser(user);
-        return "classroom";
+        return "redirect:/classroom/" + classroom.getId();
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @GetMapping("")
+    @GetMapping()
     public String listClassroom(Model model) {
         List<ClassrooomDto> classrooomDtoList = new ArrayList<>();
         List<Classroom> classroomList = classroomService.getClassesByUsername(userService.getCurrentUser().getUserName());
@@ -76,19 +69,23 @@ public class ClassroomController {
                     studentList.size()));
         });
         model.addAttribute("classroomDtoList", classrooomDtoList);
+        model.addAttribute("newClassroom", new Classroom());
         return "course-list";
     }
-
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @GetMapping("/{id}")
-    public String getCourseDetails(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("classroomId", id);
-        model.addAttribute("homework", new Homework());
+    @GetMapping("/{classroomId}")
+    public String getCourseDetails(@PathVariable("classroomId") Long classroomId, Model model) {
+        var homeworkList = homeworkService.getHomeworkByClassIdAndUsername(classroomId, userService.getCurrentUser().getUserName());
+        var homeworkTeacherList = homeworkService.findHomeworkByTeacher(classroomId);
+        var classroomDetails = classroomService.getClassroomById(classroomId);
+        model.addAttribute("classroomId", classroomId);
+        model.addAttribute("homeworkObj", new Homework());
+        model.addAttribute("homeworkList", homeworkList);
+        model.addAttribute("homeworkTeacherList", homeworkTeacherList);
+        model.addAttribute("classroomDetails", classroomDetails);
         return "course-details";
     }
-
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @PostMapping("/course_details")
+    @PostMapping("/upload")
     public String upload(@RequestParam("file") MultipartFile file, @RequestParam(name = "classroomId") Long classroomId, Model model, Homework homework, RedirectAttributes redirAttrs) {
         if (file.isEmpty()) {
             redirAttrs.addFlashAttribute("error", "Failed to store empty file");

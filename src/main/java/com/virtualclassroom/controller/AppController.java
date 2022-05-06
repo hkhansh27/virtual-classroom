@@ -43,9 +43,6 @@ public class AppController {
         return "index";
     }
 
-    @GetMapping("/home")
-    public String home() {return "home";}
-
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("user", new User());
@@ -55,22 +52,16 @@ public class AppController {
     @PostMapping("/process_register")
     public String processRegister(@NotNull User user) {
         userService.saveUserWithDefaultRole(user);
-//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
-//        user.setUserPassword(encodedPassword);
-//        userService.addUser(user);
         return "login-register";
     }
 
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("user", new User());
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//            return "login-register";
-//        }
-//        return "redirect:/";
-        return "login-register";
+        if(userService.getCurrentUser() == null) {
+            return "login-register";
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/login-error")

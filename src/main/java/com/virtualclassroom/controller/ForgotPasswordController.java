@@ -1,11 +1,10 @@
 package com.virtualclassroom.controller;
 
 import com.virtualclassroom.model.User;
-import com.virtualclassroom.model.Utility;
 import com.virtualclassroom.service.user.UserNotFoundException;
-import com.virtualclassroom.service.user.UserServiceImpl;
+import com.virtualclassroom.service.user.UserService;
+import com.virtualclassroom.utils.Helper;
 import net.bytebuddy.utility.RandomString;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -21,12 +20,13 @@ import java.io.UnsupportedEncodingException;
 
 @Controller
 public class ForgotPasswordController {
+    private final UserService userService;
+    private final JavaMailSender mailSender;
 
-    @Autowired
-    private UserServiceImpl userService;
-
-    @Autowired
-    private JavaMailSender mailSender;
+    public ForgotPasswordController(UserService userService, JavaMailSender mailSender) {
+        this.userService = userService;
+        this.mailSender = mailSender;
+    }
 
     @GetMapping("/forgot_password")
     public String showForgotPasswordForm(Model model) {
@@ -42,7 +42,7 @@ public class ForgotPasswordController {
         try {
             userService.updateResetPasswordToken(token, email);
             //generate reset password link
-            String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
+            String resetPasswordLink = Helper.getSiteURL(request) + "/reset_password?token=" + token;
             System.out.println(resetPasswordLink);
 
             //send email
