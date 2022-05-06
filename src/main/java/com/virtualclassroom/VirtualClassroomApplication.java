@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 @SpringBootApplication
 public class VirtualClassroomApplication{
-
     public static void main(String[] args) {
         SpringApplication.run(VirtualClassroomApplication.class, args);
     }

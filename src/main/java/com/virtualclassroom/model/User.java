@@ -40,7 +40,7 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private Set<Homework> homeworks = new HashSet<>();
 
-    @ManyToMany (mappedBy = "user")
+    @ManyToMany (mappedBy = "users")
     private Set<News> news = new HashSet<>();
 
     public User() {

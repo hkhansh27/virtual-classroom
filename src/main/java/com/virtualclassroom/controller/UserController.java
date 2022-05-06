@@ -27,11 +27,6 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
-
     @PostMapping("/save")
     public String saveUser(User user){
         userService.save(user);
