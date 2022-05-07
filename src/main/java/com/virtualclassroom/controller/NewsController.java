@@ -1,7 +1,6 @@
 package com.virtualclassroom.controller;
 
 import com.virtualclassroom.dto.NewsDto;
-import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.News;
 import com.virtualclassroom.service.classroom.ClassroomService;
 import com.virtualclassroom.service.news.NewsService;
@@ -29,7 +28,7 @@ public class NewsController {
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping()
-    public String getNewsPage(@RequestParam (value = "pageId") int pageId,@RequestParam Long classroomId,Model model) {
+    public String getNewsPage(@RequestParam (value = "pageId", defaultValue = "1") int pageId,@RequestParam Long classroomId,Model model) {
         int pageSize = 4;
         List<NewsDto> newsDtoList = new ArrayList<>();
         Page<News> page = newsService.findPaginated(classroomService.getClassroomById(classroomId).getId(), pageId, pageSize);
@@ -64,9 +63,10 @@ public class NewsController {
     @PreAuthorize("hasAuthority('TEACHER')")
     @PostMapping()
     public String postAddNews(@RequestParam(value = "classroomId") Long classroomId,@NotNull News news) {
+        var currentUser = userService.getCurrentUser();
         news.setTimestamp(new Date());
         news.setClassroom(classroomService.getClassroomById(classroomId));
-        news.setUser(Collections.singleton(userService.getCurrentUser()));
+        news.getUsers().add(currentUser);
         newsService.addNews(news);
         return "redirect:/news/add/" + classroomId;
     }

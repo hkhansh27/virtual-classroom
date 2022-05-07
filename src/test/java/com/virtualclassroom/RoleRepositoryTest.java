@@ -25,12 +25,11 @@ public class RoleRepositoryTest {
 
     @Test
     public void testCreateNewRole() {
-        Role user = new Role("USER");
         Role admin = new Role("ADMIN");
         Role student = new Role("STUDENT");
         Role teacher = new Role("TEACHER");
 
-        roleRepository.saveAll(List.of(user, admin, student, teacher));
-        assertThat(roleRepository.findAll().size(), equalTo(4));
+        roleRepository.saveAll(List.of(admin, student, teacher));
+        assertThat(roleRepository.findAll().size(), equalTo(3));
     }
 }

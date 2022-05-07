@@ -26,4 +26,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT DISTINCT user FROM User user JOIN user.roles role JOIN user.comments comment WHERE role.name = :role AND comment.id = :commentId")
     Set<User> findByRoleAndComment(@Param("role") String role, @Param("commentId") Long commentId);
+
+    public User findByResetPassToken(String token);
 }

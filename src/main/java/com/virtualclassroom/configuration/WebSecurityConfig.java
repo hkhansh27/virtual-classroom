@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -50,13 +51,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
         http.authorizeRequests()
                 .antMatchers("/user/**").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("username")
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/")
                 .failureUrl("/login-error")
                 .permitAll()
                 .successHandler(new SavedRequestAwareAuthenticationSuccessHandler() {

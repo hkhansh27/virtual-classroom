@@ -1,7 +1,6 @@
 package com.virtualclassroom.repository;
 
 import com.virtualclassroom.model.Classroom;
-import com.virtualclassroom.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

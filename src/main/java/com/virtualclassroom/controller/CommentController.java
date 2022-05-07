@@ -2,9 +2,7 @@ package com.virtualclassroom.controller;
 
 import com.virtualclassroom.dto.CommentDto;
 import com.virtualclassroom.dto.NewsDto;
-import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.Comment;
-import com.virtualclassroom.model.News;
 import com.virtualclassroom.service.comment.CommentService;
 import com.virtualclassroom.service.news.NewsService;
 import com.virtualclassroom.service.user.UserService;
@@ -34,12 +32,11 @@ public class CommentController {
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping()
-    public String getNewsDetailsPage(@RequestParam (value = "pageId") int pageId,@RequestParam Long newsId,Model model) {
+    public String getNewsDetailsPage(@RequestParam (value = "pageId", defaultValue = "1") int pageId,@RequestParam Long newsId,Model model) {
         int pageSize = 4;
         List<NewsDto> newsDetailsDtoList = new ArrayList<>();
         List<CommentDto> commentDtoList = new ArrayList<>();
         var newsDetailsList = newsService.getNewsById(newsId);
-        //var commentList = commentService.getByNewsId(newsId);
         Page<Comment> page = commentService.findPaginated(newsService.getNewsByNewsId(newsId).getId(), pageId, pageSize);
         List<Comment> commentListView = page.getContent();
         newsDetailsList.forEach(news -> {

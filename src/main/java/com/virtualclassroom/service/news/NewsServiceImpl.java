@@ -52,4 +52,5 @@ public class NewsServiceImpl implements NewsService {
     public void deleteNews(News news) {
         newsRepository.deleteById(news.getId());
     }
+
 }

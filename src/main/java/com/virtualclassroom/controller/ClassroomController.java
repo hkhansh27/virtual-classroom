@@ -3,10 +3,10 @@ package com.virtualclassroom.controller;
 import com.virtualclassroom.dto.ClassrooomDto;
 import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.Homework;
-import com.virtualclassroom.model.News;
 import com.virtualclassroom.model.User;
 import com.virtualclassroom.service.classroom.ClassroomService;
 import com.virtualclassroom.service.homework.HomeworkService;
+import com.virtualclassroom.service.news.NewsService;
 import com.virtualclassroom.service.user.UserService;
 import com.virtualclassroom.utils.Helper;
 import org.springframework.data.domain.Page;
@@ -27,18 +27,13 @@ public class ClassroomController {
     private final UserService userService;
     private final ClassroomService classroomService;
     private final HomeworkService homeworkService;
+    private final NewsService newsService;
 
-    public ClassroomController(UserService userService, ClassroomService classroomService, HomeworkService homeworkService) {
+    public ClassroomController(UserService userService, ClassroomService classroomService, HomeworkService homeworkService, NewsService newsService) {
         this.userService = userService;
         this.classroomService = classroomService;
         this.homeworkService = homeworkService;
-    }
-
-    @PreAuthorize("hasAuthority('TEACHER')")
-    @GetMapping("/create")
-    public String classroom(Model model) {
-        model.addAttribute("classroom", new Classroom());
-        return "classroom";
+        this.newsService = newsService;
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
@@ -48,7 +43,7 @@ public class ClassroomController {
         classroom.setCodeClass(Helper.getRandomNumberString());
         user.getClassrooms().add(classroom);
         userService.addUser(user);
-        return "classroom";
+        return "redirect:/classroom";
     }
 
     @PostMapping("/join")
@@ -57,15 +52,14 @@ public class ClassroomController {
         classroom = classroomService.findClassByCodeID(keyword);
         user.getClassrooms().add(classroom);
         userService.addUser(user);
-        return "classroom";
+        return "redirect:/classroom/" + classroom.getId();
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @GetMapping("/list")
-    public String listClassroom(@RequestParam (value = "pageId") int pageId,Model model) {
-        int pageSize = 4;
+    @GetMapping()
+    public String listClassroom(@RequestParam (value = "pageId", defaultValue = "1") int pageId, Model model) {
+        int pageSize = 6;
         List<ClassrooomDto> classroomDtoList = new ArrayList<>();
-        //List<Classroom> classroomList = classroomService.getClassesByUsername(userService.getCurrentUser().getUserName());
         Page<Classroom> page = classroomService.findPaginated(userService.getCurrentUser().getUserName(), pageId, pageSize);
         List<Classroom> classroomsListView = page.getContent();
         classroomsListView.forEach(classroom -> {
@@ -84,20 +78,27 @@ public class ClassroomController {
         model.addAttribute("currentPage", pageId);
         model.addAttribute("totalsPage", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("classroom", new Classroom());
+        model.addAttribute("newClassroom", new Classroom());
         return "course-list";
     }
 
-    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @GetMapping("/{id}")
-    public String getCourseDetails(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("classroomId", id);
-        model.addAttribute("homework", new Homework());
+    @GetMapping("/{classroomId}")
+    public String getCourseDetails(@PathVariable("classroomId") Long classroomId, Model model) {
+        var homeworkList = homeworkService.getHomeworkByClassIdAndUsername(classroomId, userService.getCurrentUser().getUserName());
+        var homeworkTeacherList = homeworkService.findHomeworkByTeacher(classroomId);
+        var classroomDetails = classroomService.getClassroomById(classroomId);
+        var newsInClass = newsService.getByClassId(classroomId);
+        model.addAttribute("classroomId", classroomId);
+        model.addAttribute("homeworkObj", new Homework());
+        model.addAttribute("homeworkList", homeworkList);
+        model.addAttribute("homeworkTeacherList", homeworkTeacherList);
+        model.addAttribute("classroomDetails", classroomDetails);
+        model.addAttribute("newsInClass", newsInClass);
         return "course-details";
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-    @PostMapping("/course_details")
+    @PostMapping()
     public String upload(@RequestParam("file") MultipartFile file, @RequestParam(name = "classroomId") Long classroomId, Model model, Homework homework, RedirectAttributes redirAttrs) {
         if (file.isEmpty()) {
             redirAttrs.addFlashAttribute("error", "Failed to store empty file");

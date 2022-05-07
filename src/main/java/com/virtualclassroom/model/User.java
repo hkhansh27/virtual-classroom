@@ -20,6 +20,8 @@ public class User {
 
     private String userStatus;
 
+    private String resetPassToken;
+
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "user_class",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -38,17 +40,18 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private Set<Homework> homeworks = new HashSet<>();
 
-    @ManyToMany (mappedBy = "user")
+    @ManyToMany (mappedBy = "users")
     private Set<News> news = new HashSet<>();
 
     public User() {
     }
 
-    public User(String userName, String userEmail, String userPassword, String userStatus) {
+    public User(String userName, String userEmail, String userPassword, String userStatus, String resetPassToken) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userStatus = userStatus;
+        this.resetPassToken = resetPassToken;
     }
 
     public Long getId() {
@@ -81,6 +84,14 @@ public class User {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public String getResetPassToken() {
+        return resetPassToken;
+    }
+
+    public void setResetPassToken(String resetPassToken) {
+        this.resetPassToken = resetPassToken;
     }
 
     public String getUserStatus() {

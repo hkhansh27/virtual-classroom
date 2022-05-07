@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
 
 @Controller
@@ -27,15 +26,10 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
-
     @PostMapping("/save")
     public String saveUser(User user){
         userService.save(user);
-        return "redirect:/user/index";
+        return "redirect:/user";
     }
 
     @GetMapping("/edit/{id}")

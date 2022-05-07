@@ -95,4 +95,29 @@ public class UserServiceImpl implements UserService {
     public List<Role> getRoles() {
         return roleRepository.findAll();
     }
+
+    public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
+        User user = userRepository.findByEmail(email);
+
+        if (user != null) {
+            user.setResetPassToken(token);
+            userRepository.save(user);
+        } else {
+            throw new UserNotFoundException("Could not found any user with email" + email);
+        }
+    }
+
+    public User get(String resetPassToken) {
+        return userRepository.findByResetPassToken(resetPassToken);
+    }
+
+    public void updatePassword(User user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+
+        user.setUserPassword(encodedPassword);
+        user.setResetPassToken(null);
+
+        userRepository.save(user);
+    }
 }
