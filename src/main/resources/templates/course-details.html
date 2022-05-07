@@ -63,6 +63,7 @@
                     <span>(4.5)</span>
                 </div>
 
+
                 <h2 class="title" th:text="${classroomDetails.getNameClass()}">2021 Complete Python Bootcamp From Zero
                     to Hero in Python </h2>
 
@@ -79,6 +80,7 @@
                     <!--                            <h5 class="name">Adam Helen</h5>-->
                     <!--                        </div>-->
                     <!--                    </div>-->
+
 
                     <div class="meta-action">
                         <p class="label">Code : <span th:text="${classroomDetails.getCodeClass()}">2/12/2021</span></p>
@@ -108,6 +110,7 @@
                                 companies. from the National Research University Higher School of Economics (HSE
                                 University) is the first fully online.</p>
                         </div>
+
 
                         <!-- Course Overview End -->
                         <!-- Start news-->
@@ -328,6 +331,7 @@
                         <!--                                </div>-->
                         <!--                            </div>-->
                         <!--                        </div>-->
+
                         <!-- Course Instructor End -->
 
                         <!-- Course Review Start -->
@@ -503,8 +507,10 @@
                                 <a class="btn btn-outline-primary w-100"
                                    th:href="@{'/news?classroomId=' + ${classroomId}}">Add news</a>
                                 <a class="btn btn-outline-primary w-100"
+
                                    th:href="@{'/homework?classroomId=' + ${classroomId}}"
                                    sec:authorize="hasAuthority('TEACHER')">View homeworks</a>
+
                             </div>
                         </div>
                         <!-- Sidebar Details Video Description End -->
@@ -528,8 +534,10 @@
                                                     th:text="${homework.getName() == null ? 'Untitled homework' : homework.getName()}">Cupidatat
                                                 non proident sunt
                                                 culpa officia deserunt</a> <i class="fa fa-download"></i></h4>
+
                                             <h5 th:text="|Point: ${homework.getScore() == null ? 'Not graded yet' : homework.getScore() }|"
                                                 style="color: green"></h5>
+
                                             <span class="price" th:text="${homework.getDescription()}">Price  <strong>$45</strong></span>
                                         </div>
                                     </div>
