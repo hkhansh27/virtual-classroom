@@ -1,6 +1,5 @@
 package com.virtualclassroom.repository;
 
-import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.News;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

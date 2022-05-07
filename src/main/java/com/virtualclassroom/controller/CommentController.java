@@ -2,9 +2,7 @@ package com.virtualclassroom.controller;
 
 import com.virtualclassroom.dto.CommentDto;
 import com.virtualclassroom.dto.NewsDto;
-import com.virtualclassroom.model.Classroom;
 import com.virtualclassroom.model.Comment;
-import com.virtualclassroom.model.News;
 import com.virtualclassroom.service.comment.CommentService;
 import com.virtualclassroom.service.news.NewsService;
 import com.virtualclassroom.service.user.UserService;

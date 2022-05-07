@@ -6,6 +6,7 @@ import com.virtualclassroom.model.Homework;
 import com.virtualclassroom.model.User;
 import com.virtualclassroom.service.classroom.ClassroomService;
 import com.virtualclassroom.service.homework.HomeworkService;
+import com.virtualclassroom.service.news.NewsService;
 import com.virtualclassroom.service.user.UserService;
 import com.virtualclassroom.utils.Helper;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,11 +26,13 @@ public class ClassroomController {
     private final UserService userService;
     private final ClassroomService classroomService;
     private final HomeworkService homeworkService;
+    private final NewsService newsService;
 
-    public ClassroomController(UserService userService, ClassroomService classroomService, HomeworkService homeworkService) {
+    public ClassroomController(UserService userService, ClassroomService classroomService, HomeworkService homeworkService, NewsService newsService) {
         this.userService = userService;
         this.classroomService = classroomService;
         this.homeworkService = homeworkService;
+        this.newsService = newsService;
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
@@ -77,11 +80,13 @@ public class ClassroomController {
         var homeworkList = homeworkService.getHomeworkByClassIdAndUsername(classroomId, userService.getCurrentUser().getUserName());
         var homeworkTeacherList = homeworkService.findHomeworkByTeacher(classroomId);
         var classroomDetails = classroomService.getClassroomById(classroomId);
+        var newsInClass = newsService.getByClassId(classroomId);
         model.addAttribute("classroomId", classroomId);
         model.addAttribute("homeworkObj", new Homework());
         model.addAttribute("homeworkList", homeworkList);
         model.addAttribute("homeworkTeacherList", homeworkTeacherList);
         model.addAttribute("classroomDetails", classroomDetails);
+        model.addAttribute("newsInClass", newsInClass);
         return "course-details";
     }
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
