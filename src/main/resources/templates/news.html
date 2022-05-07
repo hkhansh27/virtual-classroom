@@ -20,7 +20,7 @@
       <!--                                <li><a href="index-4.html">Home 04</a></li>-->
       <!--                            </ul>-->
     </li>
-    <li sec:authorize="hasAnyAuthority('TEACHER', 'ADMIN')">
+    <li sec:authorize="hasAuthority('ADMIN')">
       <a th:href="@{/user}">Users</a>
       <!--                            <ul class="sub-menu">-->
       <!--                                <li><a href="about.html">About 01</a></li>-->
@@ -30,7 +30,7 @@
       <!--                                <li><a href="login-register.html">Login & Register</a></li>-->
       <!--                            </ul>-->
     </li>
-    <li>
+    <li sec:authorize="hasAnyAuthority('TEACHER', 'STUDENT')">
       <a class="active" th:href="@{/classroom}">Classrooms</a>
       <!--                            <ul class="sub-menu">-->
       <!--                                <li><a href="course-list.html">Course List</a></li>-->
