@@ -63,20 +63,24 @@
                     <span>(4.5)</span>
                 </div>
 
-                <h2 class="title" th:text="${classroomDetails.getNameClass()}">2021 Complete Python Bootcamp From Zero to Hero in Python </h2>
 
-                <p th:text="${classroomDetails.getDescriptionClass()}">Learn Python like a Professional Start from the basics and go all the way to creating your own
+                <h2 class="title" th:text="${classroomDetails.getNameClass()}">2021 Complete Python Bootcamp From Zero
+                    to Hero in Python </h2>
+
+                <p th:text="${classroomDetails.getDescriptionClass()}">Learn Python like a Professional Start from the
+                    basics and go all the way to creating your own
                     applications and games </p>
 
                 <div class="course-details-meta">
-<!--                    <div class="meta-action">-->
-<!--                        <div class="meta-author">-->
-<!--                            <img alt="Author" th:src="@{/images/author-1.jpg}">-->
-<!--                        </div>-->
-<!--                        <div class="meta-name">-->
-<!--                            <h5 class="name">Adam Helen</h5>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <!--                    <div class="meta-action">-->
+                    <!--                        <div class="meta-author">-->
+                    <!--                            <img alt="Author" th:src="@{/images/author-1.jpg}">-->
+                    <!--                        </div>-->
+                    <!--                        <div class="meta-name">-->
+                    <!--                            <h5 class="name">Adam Helen</h5>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
 
                     <div class="meta-action">
                         <p class="label">Code : <span th:text="${classroomDetails.getCodeClass()}">2/12/2021</span></p>
@@ -106,18 +110,28 @@
                                 companies. from the National Research University Higher School of Economics (HSE
                                 University) is the first fully online.</p>
                         </div>
-                        <!-- Course Overview End -->
 
-                        <!-- Course Overview Start -->
-                        <!--                        <div class="course-learn-list" th:each="news: ${newsDtoList}">-->
-                        <!--                            <h3 class="title" th:text="${news.getTitle()}">Course Overview</h3>-->
-                        <!--                            <p th:text="${news.getContent()}">World-class training and development programs developed by top teachers. Build skills-->
-                        <!--                                with courses, certificates, and degrees online from world-class universities and-->
-                        <!--                                companies. from the National Research University Higher School of Economics (HSE-->
-                        <!--                                University) is the first fully online.</p>-->
-                        <!--                        </div>-->
-                        <!-- Course Overview End -->
 
+                        <!-- Course Overview End -->
+                        <!-- Start news-->
+                        <h3 class="title">Notification</h3>
+                        <div class="course-learn-list" th:each="news: ${newsInClass}">
+                            <div class="blog-image" style="width: 50px">
+                                <a href="#"><img th:src="@{/images/notification-flat.png}" alt="Notification"></a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="meta">
+                                    <a href="#" th:text="${news.getTimestamp()}"><i class="fa fa-calendar-o"></i> 01
+                                        Jul, 2021</a>
+                                </div>
+                                <h3 class="title" th:text="${news.getTitle()}"><a href="blog-details.html">LIVE SHOW:
+                                    Business memes, dad lessons, selling to CROs</a></h3>
+                                <p th:text="${news.getContent()}">World-class training and development programs
+                                    developed by top teachers. Build skills with courses, certificates, and degrees
+                                    online from world-class universities and companies.</p>
+                            </div>
+                        </div>
+                        <!--End news-->
                         <div class="course-learn-list" th:each="homework: ${homeworkTeacherList}">
                             <div class="sidebar-course-item">
                                 <div class="item-image">
@@ -148,7 +162,7 @@
                                 </button>
                             </div>
 
-<!--                            Start modal form-->
+                            <!--                            Start modal form-->
                             <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
                                  id="upload-homework"
                                  tabindex="-1">
@@ -166,7 +180,8 @@
                                                 <input name="classroomId" th:value="${classroomId}" type="hidden">
                                                 <div class="mb-3">
                                                     <input class="form-control" id="homeworkCode"
-                                                           name="parentHomework" th:value="${homework.getId()}" type="hidden">
+                                                           name="parentHomework" th:value="${homework.getId()}"
+                                                           type="hidden">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="col-form-label" for="homeworkName">Name</label>
@@ -174,7 +189,8 @@
                                                            th:field="*{name}" type="text">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label class="col-form-label" for="homeworkDescription">Description</label>
+                                                    <label class="col-form-label"
+                                                           for="homeworkDescription">Description</label>
                                                     <input class="form-control" id="homeworkDescription" required
                                                            th:field="*{description}" type="text">
                                                 </div>
@@ -183,7 +199,8 @@
                                                     <input class="form-control" id="formFile" name="file" type="file">
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                                                    <button class="btn btn-secondary" data-bs-dismiss="modal"
+                                                            type="button">
                                                         Close
                                                     </button>
                                                     <button class="btn btn-primary" type="submit">Submit</button>
@@ -194,126 +211,127 @@
                                     </div>
                                 </div>
                             </div>
-<!--                            End modal form-->
+                            <!--                            End modal form-->
                         </div>
 
                         <!-- Course Learn List Start -->
-<!--                        <div class="course-learn-list">-->
-<!--                            <h3 class="title">What you will learn</h3>-->
-<!--                            <ul>-->
-<!--                                <li>Become a UX designer.</li>-->
-<!--                                <li>Become a UX designer.</li>-->
-<!--                                <li>You will be able to add UX designer to your CV</li>-->
-<!--                                <li>You will be able to add UX designer to your CV</li>-->
-<!--                                <li>Build & test a full website design.</li>-->
-<!--                                <li>Build & test a full website design.</li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
+                        <!--                        <div class="course-learn-list">-->
+                        <!--                            <h3 class="title">What you will learn</h3>-->
+                        <!--                            <ul>-->
+                        <!--                                <li>Become a UX designer.</li>-->
+                        <!--                                <li>Become a UX designer.</li>-->
+                        <!--                                <li>You will be able to add UX designer to your CV</li>-->
+                        <!--                                <li>You will be able to add UX designer to your CV</li>-->
+                        <!--                                <li>Build & test a full website design.</li>-->
+                        <!--                                <li>Build & test a full website design.</li>-->
+                        <!--                            </ul>-->
+                        <!--                        </div>-->
                         <!-- Course Learn List End -->
 
                         <!-- Course Lessons Start -->
-<!--                        <div class="course-lessons">-->
+                        <!--                        <div class="course-lessons">-->
 
-<!--                            <div class="lessons-top">-->
-<!--                                <h3 class="title">Course Content</h3>-->
-<!--                                <div class="lessons-time">-->
-<!--                                    <span>10 Lessons</span>-->
-<!--                                    <span>6h 40m</span>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                        <!--                            <div class="lessons-top">-->
+                        <!--                                <h3 class="title">Course Content</h3>-->
+                        <!--                                <div class="lessons-time">-->
+                        <!--                                    <span>10 Lessons</span>-->
+                        <!--                                    <span>6h 40m</span>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
 
-<!--                            &lt;!&ndash; Course Accordion Start &ndash;&gt;-->
-<!--                            <div class="course-accordion accordion" id="accordionCourse">-->
-<!--                                <div class="accordion-item">-->
-<!--                                    <button data-bs-target="#collapseOne" data-bs-toggle="collapse">Introduction-->
-<!--                                    </button>-->
-<!--                                    <div class="accordion-collapse collapse show" data-bs-parent="#accordionCourse"-->
-<!--                                         id="collapseOne">-->
-<!--                                        <div class="accordion-body">-->
-<!--                                            <ul class="lessons-list">-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
-<!--                                                    Introductions <span>5:00</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
-<!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
-<!--                                                    start?</a></li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                        <!--                            &lt;!&ndash; Course Accordion Start &ndash;&gt;-->
+                        <!--                            <div class="course-accordion accordion" id="accordionCourse">-->
+                        <!--                                <div class="accordion-item">-->
+                        <!--                                    <button data-bs-target="#collapseOne" data-bs-toggle="collapse">Introduction-->
+                        <!--                                    </button>-->
+                        <!--                                    <div class="accordion-collapse collapse show" data-bs-parent="#accordionCourse"-->
+                        <!--                                         id="collapseOne">-->
+                        <!--                                        <div class="accordion-body">-->
+                        <!--                                            <ul class="lessons-list">-->
+                        <!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
+                        <!--                                                    Introductions <span>5:00</span></a></li>-->
+                        <!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
+                        <!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
+                        <!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
+                        <!--                                                    start?</a></li>-->
+                        <!--                                            </ul>-->
+                        <!--                                        </div>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
 
-<!--                                <div class="accordion-item">-->
-<!--                                    <button class="collapsed" data-bs-target="#collapseTwo" data-bs-toggle="collapse">-->
-<!--                                        Analysis-->
-<!--                                    </button>-->
-<!--                                    <div class="accordion-collapse collapse" data-bs-parent="#accordionCourse"-->
-<!--                                         id="collapseTwo">-->
-<!--                                        <div class="accordion-body">-->
-<!--                                            <ul class="lessons-list">-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
-<!--                                                    Introductions <span>5:00</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
-<!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
-<!--                                                    start?</a></li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                        <!--                                <div class="accordion-item">-->
+                        <!--                                    <button class="collapsed" data-bs-target="#collapseTwo" data-bs-toggle="collapse">-->
+                        <!--                                        Analysis-->
+                        <!--                                    </button>-->
+                        <!--                                    <div class="accordion-collapse collapse" data-bs-parent="#accordionCourse"-->
+                        <!--                                         id="collapseTwo">-->
+                        <!--                                        <div class="accordion-body">-->
+                        <!--                                            <ul class="lessons-list">-->
+                        <!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
+                        <!--                                                    Introductions <span>5:00</span></a></li>-->
+                        <!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
+                        <!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
+                        <!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
+                        <!--                                                    start?</a></li>-->
+                        <!--                                            </ul>-->
+                        <!--                                        </div>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
 
-<!--                                <div class="accordion-item">-->
-<!--                                    <button class="collapsed" data-bs-target="#collapseThree" data-bs-toggle="collapse">-->
-<!--                                        Practical-->
-<!--                                    </button>-->
-<!--                                    <div class="accordion-collapse collapse" data-bs-parent="#accordionCourse"-->
-<!--                                         id="collapseThree">-->
-<!--                                        <div class="accordion-body">-->
-<!--                                            <ul class="lessons-list">-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
-<!--                                                    Introductions <span>5:00</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
-<!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
-<!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
-<!--                                                    start?</a></li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Course Accordion End &ndash;&gt;-->
+                        <!--                                <div class="accordion-item">-->
+                        <!--                                    <button class="collapsed" data-bs-target="#collapseThree" data-bs-toggle="collapse">-->
+                        <!--                                        Practical-->
+                        <!--                                    </button>-->
+                        <!--                                    <div class="accordion-collapse collapse" data-bs-parent="#accordionCourse"-->
+                        <!--                                         id="collapseThree">-->
+                        <!--                                        <div class="accordion-body">-->
+                        <!--                                            <ul class="lessons-list">-->
+                        <!--                                                <li><a href=""><i class="fa fa-play-circle"></i> Greetings and-->
+                        <!--                                                    Introductions <span>5:00</span></a></li>-->
+                        <!--                                                <li><a href=""><i class="fa fa-play-circle"></i> 5 Business English-->
+                        <!--                                                    Phrasal Verbs <span>3:17</span></a></li>-->
+                        <!--                                                <li><a href=""><i class="fa fa-question-circle"></i> Quizz 1 : How to-->
+                        <!--                                                    start?</a></li>-->
+                        <!--                                            </ul>-->
+                        <!--                                        </div>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                            &lt;!&ndash; Course Accordion End &ndash;&gt;-->
 
-<!--                        </div>-->
+                        <!--                        </div>-->
                         <!-- Course Lessons End -->
 
                         <!-- Course Instructor Start -->
-<!--                        <div class="course-instructor">-->
-<!--                            <h3 class="title">Course Instructor</h3>-->
+                        <!--                        <div class="course-instructor">-->
+                        <!--                            <h3 class="title">Course Instructor</h3>-->
 
-<!--                            <div class="instructor-profile">-->
-<!--                                <div class="profile-images">-->
-<!--                                    <img alt="author" th:src="@{/images/author-7.jpg}">-->
-<!--                                </div>-->
-<!--                                <div class="profile-content">-->
-<!--                                    <h5 class="name">Alena Hedge</h5>-->
+                        <!--                            <div class="instructor-profile">-->
+                        <!--                                <div class="profile-images">-->
+                        <!--                                    <img alt="author" th:src="@{/images/author-7.jpg}">-->
+                        <!--                                </div>-->
+                        <!--                                <div class="profile-content">-->
+                        <!--                                    <h5 class="name">Alena Hedge</h5>-->
 
-<!--                                    <div class="profile-meta">-->
-<!--                                        <div class="rating">-->
-<!--                                            <div class="rating-star">-->
-<!--                                                <div class="rating-active" style="width: 60%;"></div>-->
-<!--                                            </div>-->
-<!--                                            <span>(4.5)</span>-->
-<!--                                        </div>-->
-<!--                                        <span class="meta-action"><i class="fa fa-play-circle"></i> 10 Tutorials</span>-->
-<!--                                        <span class="meta-action"><i class="fa fa-user-o"></i> 134 Students</span>-->
-<!--                                    </div>-->
+                        <!--                                    <div class="profile-meta">-->
+                        <!--                                        <div class="rating">-->
+                        <!--                                            <div class="rating-star">-->
+                        <!--                                                <div class="rating-active" style="width: 60%;"></div>-->
+                        <!--                                            </div>-->
+                        <!--                                            <span>(4.5)</span>-->
+                        <!--                                        </div>-->
+                        <!--                                        <span class="meta-action"><i class="fa fa-play-circle"></i> 10 Tutorials</span>-->
+                        <!--                                        <span class="meta-action"><i class="fa fa-user-o"></i> 134 Students</span>-->
+                        <!--                                    </div>-->
 
-<!--                                    <p>World-class training and development programs developed by top teachers. Build-->
-<!--                                        skills with courses, certificates, and degrees online from world-class-->
-<!--                                        universities </p>-->
+                        <!--                                    <p>World-class training and development programs developed by top teachers. Build-->
+                        <!--                                        skills with courses, certificates, and degrees online from world-class-->
+                        <!--                                        universities </p>-->
 
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+
                         <!-- Course Instructor End -->
 
                         <!-- Course Review Start -->
@@ -489,7 +507,10 @@
                                 <a class="btn btn-outline-primary w-100"
                                    th:href="@{'/news?classroomId=' + ${classroomId}}">Add news</a>
                                 <a class="btn btn-outline-primary w-100"
-                                   th:href="@{'/homework?classroomId=' + ${classroomId}}" sec:authorize="hasAuthority('TEACHER')">View homeworks</a>
+
+                                   th:href="@{'/homework?classroomId=' + ${classroomId}}"
+                                   sec:authorize="hasAuthority('TEACHER')">View homeworks</a>
+
                             </div>
                         </div>
                         <!-- Sidebar Details Video Description End -->
@@ -513,7 +534,10 @@
                                                     th:text="${homework.getName() == null ? 'Untitled homework' : homework.getName()}">Cupidatat
                                                 non proident sunt
                                                 culpa officia deserunt</a> <i class="fa fa-download"></i></h4>
-                                            <h5 th:text="|Point: ${homework.getScore() == null ? 'Not graded yet' : homework.getScore() }|" style="color: green"></h5>
+
+                                            <h5 th:text="|Point: ${homework.getScore() == null ? 'Not graded yet' : homework.getScore() }|"
+                                                style="color: green"></h5>
+
                                             <span class="price" th:text="${homework.getDescription()}">Price  <strong>$45</strong></span>
                                         </div>
                                     </div>
