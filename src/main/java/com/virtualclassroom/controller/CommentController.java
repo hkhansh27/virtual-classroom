@@ -74,28 +74,6 @@ public class CommentController {
         return "news-details";
     }
 
-//    @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
-//    @GetMapping()
-//    public String getComment(@RequestParam Long newsId,Model model) {
-//        List<CommentDto> commentDtoList = new ArrayList<>();
-//        var commentList = commentService.getByNewsId(newsId);
-//        commentList.forEach(comment -> {
-//            var teacherList = userService.findByRoleAndComment("TEACHER", comment.getId());
-//            var studentList = userService.findByRoleAndComment("STUDENT", comment.getId());
-//            commentDtoList.add(new CommentDto(
-//                    comment.getId(),
-//                    comment.getContent(),
-//                    comment.getTimestamp(),
-//                    teacherList,
-//                    studentList,
-//                    studentList.size()));
-//        });
-//        model.addAttribute("newsId", newsId);
-//        model.addAttribute("commentDtoList", commentDtoList);
-//        model.addAttribute("comment", new Comment());
-//        return "news-details";
-//    }
-
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping("/{newsId}")
     public String addCmt(@PathVariable("newsId") Long newsId, Model model) {
