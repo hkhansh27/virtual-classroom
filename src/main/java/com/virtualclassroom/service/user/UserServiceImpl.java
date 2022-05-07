@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
             user.setResetPassToken(token);
             userRepository.save(user);
         } else {
-            throw new UserNotFoundException("Could not found any user with email" + email);
+            throw new UserNotFoundException("Could not found any user with email " + email);
         }
     }
 

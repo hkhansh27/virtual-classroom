@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="vi"
+      layout:decorate="_layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+>
+<head>
+    <title>Message</title>
+</head>
+
+<body>
+<div class="main-wrapper" layout:fragment="main_body">
+    <!-- Page Banner Start -->
+    <div class="section page-banner-section bg-color-1">
+
+        <img alt="shape" class="shape-1" th:src="@{../images/shape/shape-5.png}">
+        <img alt="shape" class="shape-2" th:src="@{../images/shape/shape-6.png}">
+        <img alt="shape" class="shape-3" th:src="@{../images/shape/shape-7.png}">
+
+        <img alt="shape" class="shape-4" th:src="@{../images/shape/shape-21.png}">
+        <img alt="shape" class="shape-5" th:src="@{../images/shape/shape-21.png}">
+
+        <div class="container">
+            <!-- Page Banner Content Start -->
+            <div class="page-banner-content">
+                <h2 class="title">Message</h2>
+                <ul class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                    <li class="breadcrumb-item active">Message</li>
+                </ul>
+            </div>
+            <!-- Page Banner Content End -->
+        </div>
+    </div>
+    <!-- Page Banner End -->
+    <div th:if="${message}">
+        <h1 th:text="${message}" class="alert alert-danger" role="alert"></h1>
+    </div>
+</div>
+</body>
+
+</html>

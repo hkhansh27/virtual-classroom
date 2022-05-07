@@ -131,7 +131,7 @@ public class AppController {
         if (user == null) {
             model.addAttribute("title","Reset your password");
             model.addAttribute("message","Invalid Token");
-            return "reset_password_form";
+            return "message";
         }
 
         model.addAttribute("token", token);
@@ -148,12 +148,12 @@ public class AppController {
         if (user == null) {
             model.addAttribute("title","Reset your password");
             model.addAttribute("message","Invalid Token");
-            return "reset_password_form";
+            return "message";
         } else {
             userService.updatePassword(user, password);
             model.addAttribute("message", "You have successfully changed your password.");
         }
-        return "redirect:/login";
+        return "message";
     }
 
     @GetMapping("/homework_list/download")

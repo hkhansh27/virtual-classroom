@@ -173,7 +173,6 @@
                         <div sec:authorize="isAuthenticated()">
                             <span sec:authentication="name">Khanh</span>
                             <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
-                            <h1>HELLO</h1>
                             <form method="post" th:action="@{/logout}">
                                 <div class="section-title text-center">
                                     <h4 class="title">
