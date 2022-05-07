@@ -12,4 +12,5 @@ public interface NewsService {
     News getNewsByNewsId(Long id);
     List<News> getByClassId(Long id);
     Page<News> findPaginated(Long classroomId, int pageId, int pageSize);
+    void deleteNews(News news);
 }

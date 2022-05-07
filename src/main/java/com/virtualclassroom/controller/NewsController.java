@@ -71,4 +71,13 @@ public class NewsController {
         return "redirect:/news/add/" + classroomId;
     }
 
+    @PreAuthorize("hasAuthority('TEACHER')")
+    @DeleteMapping()
+    public String deleteNews(@RequestParam (value = "pageId") int pageId, @RequestParam Long classroomId, Model model, @NotNull News news) {
+        News news1 = newsService.getNewsByNewsId(news.getId());
+        newsService.deleteNews(news1);
+        model.addAttribute("classroomId", classroomId);
+        model.addAttribute("pageId", pageId);
+        return "news";
+    }
 }

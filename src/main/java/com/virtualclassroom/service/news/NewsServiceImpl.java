@@ -47,4 +47,10 @@ public class NewsServiceImpl implements NewsService {
         Pageable pageable = PageRequest.of(pageId - 1, pageSize);
         return this.newsRepository.findByClassroomIdPagination(classroomId, pageable);
     }
+
+    @Override
+    public void deleteNews(News news) {
+        newsRepository.deleteById(news.getId());
+    }
+
 }

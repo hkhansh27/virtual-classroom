@@ -32,12 +32,11 @@ public class CommentController {
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @GetMapping()
-    public String getNewsDetailsPage(@RequestParam (value = "pageId") int pageId,@RequestParam Long newsId,Model model) {
-        int pageSize = 2;
+    public String getNewsDetailsPage(@RequestParam (value = "pageId", defaultValue = "1") int pageId,@RequestParam Long newsId,Model model) {
+        int pageSize = 4;
         List<NewsDto> newsDetailsDtoList = new ArrayList<>();
         List<CommentDto> commentDtoList = new ArrayList<>();
         var newsDetailsList = newsService.getNewsById(newsId);
-        //var commentList = commentService.getByNewsId(newsId);
         Page<Comment> page = commentService.findPaginated(newsService.getNewsByNewsId(newsId).getId(), pageId, pageSize);
         List<Comment> commentListView = page.getContent();
         newsDetailsList.forEach(news -> {
