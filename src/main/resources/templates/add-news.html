@@ -27,6 +27,9 @@
                     <!-- Contact Form Start -->
                     <div class="contact-form-wrapper">
                         <form th:action="@{/news}" method="post" th:object="${news}">
+<!--                            <textarea id="editor">-->
+
+<!--                            </textarea>-->
                             <div class="row">
                                 <!--                                <div class="col-md-6">-->
                                 <!--                                    &lt;!&ndash; Single Form Start &ndash;&gt;-->
@@ -41,7 +44,7 @@
                                         <textarea  th:field="*{title}" class="form-control" placeholder="Write A title*"></textarea>
                                     </div>
                                     <div class="single-form">
-                                        <textarea  th:field="*{content}" class="form-control" placeholder="Write A Massage*"></textarea>
+                                        <textarea id="editor"  th:field="*{content}" class="form-control" placeholder="Write A Massage*"></textarea>
                                     </div>
                                     <input type="hidden" name="classroomId" th:value="${classroomId}">
                                     <!-- Single Form End -->
@@ -66,5 +69,16 @@
     <!-- Contact Form End -->
 </div>
 </body>
+<div layout:fragment="script-block">
+    <script defer src="/ckeditor5/ckeditor.js"></script>
+    <script>
+        window.addEventListener("load", (e)=>{
+            ClassicEditor.create( document.querySelector( '#editor' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+        });
+    </script>
+</div>
 
 </html>
